@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+
+gem 'aasm'
+gem 'byebug'
+gem 'database_cleaner'
+gem 'dotenv-rails'
+gem 'factory_bot'
+gem 'faker'
+gem 'rspec'
+gem 'sequel'
+gem 'sqlite3'
+gem 'telegram-bot-ruby'
