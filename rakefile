@@ -1,0 +1,71 @@
+namespace :g do
+  task :command, [:file] do |_task, args|
+    # check exist path /app/commands/
+    directory = File.join(File.dirname(__FILE__), 'app', 'commands')
+    # get class name
+    file_name = "#{args[:file].split('/').last.capitalize}Command"
+    # get path to file
+    full_path = args[:file].split('/')
+
+    build_full_path_to_file directory, full_path
+    file = build_full_path_and_file full_path, file_name, directory
+
+    write_class_to_file file, file_name
+  end
+
+  task :action, [:file] do |_task, args|
+    # check exist path /app/commands/
+    directory = File.join(File.dirname(__FILE__), 'app', 'commands')
+    # get class name
+    file_name = "#{args[:file].split('/').last.capitalize}Action"
+    # get path to file
+    full_path = args[:file].split('/')
+
+    build_full_path_to_file directory, full_path
+
+    file = build_full_path_and_file full_path, file_name, directory
+    write_class_to_file file, file_name
+  end
+
+  task :command_dir do
+    directory = File.join(File.dirname(__FILE__), 'app', 'commands')
+    mkdir directory unless File.directory? directory
+  end
+
+  task command_dir: :action
+  task command_dir: :command
+
+  def snakecase(str)
+    str.gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+       .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+       .tr('-', '_')
+       .gsub(/\s/, '_')
+       .gsub(/__+/, '_')
+       .downcase
+  end
+
+  def write_class_to_file(file, file_name)
+    # write to file
+    File.open(file, 'a') do |line|
+      line.puts "class #{file_name} < Command\r"
+      line.puts 'end'
+    end
+  end
+
+  def build_full_path_and_file(full_path, file_name, directory)
+    # build full path
+    full_path[-1] = "#{snakecase(file_name)}.rb"
+    file = File.join(directory, full_path.join('/'))
+    touch file
+    file
+  end
+
+  def build_full_path_to_file(directory, full_path)
+    # create path to file
+    x = "#{directory}/"
+    full_path[0...-1].each do |dir|
+      x += "#{dir}/"
+      mkdir x unless File.directory? x
+    end
+  end
+end
