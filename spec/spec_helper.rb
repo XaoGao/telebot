@@ -1,6 +1,9 @@
+require 'simplecov'
+SimpleCov.start
 require 'yaml'
 require 'sequel'
 require 'factory_bot'
+require 'database_cleaner-sequel'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -15,8 +18,23 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
   config.before(:suite) do
     FactoryBot.find_definitions
+  end
+
+  config.before(:each) do
+    DatabaseCleaner[:sequel].strategy = :deletion
+  end
+
+  config.before(:each) do
+    DatabaseCleaner[:sequel].start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner[:sequel].clean
   end
 end
 
@@ -30,5 +48,9 @@ end
 
 if DB
   Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), '..', 'app', 'db', 'migrations'))
-end
 
+  require_relative '../app/models/user'
+  require_relative '../app/models/vacation'
+  require_relative '../lib/command_factory'
+  require_relative '../lib/router'
+end

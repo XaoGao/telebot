@@ -13,15 +13,15 @@ class User < Sequel::Model(DB)
   aasm :actions, column: :action do
     state :empty, initial: true
     state :add_date_of_birth
-    # state :add_vacation
+    state :add_vacation
 
     event :add_date_of_birth do
       transitions from: :empty, to: :add_date_of_birth
     end
 
-    # event :add_vacation do
-    #   transitions from: :empty, to: :add_vacation
-    # end
+    event :add_vacation do
+      transitions from: :empty, to: :add_vacation
+    end
 
     event :clear do
       transitions to: :empty

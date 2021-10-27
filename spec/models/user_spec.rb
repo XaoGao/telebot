@@ -1,7 +1,6 @@
 require_relative '../spec_helper'
-require_relative '../../app/models/user'
 
-describe 'User' do
+RSpec.describe 'User' do
   let(:user) { build(:user, username: 'simple_user', first_name: 'Joy', last_name: 'Den', action: 'add_date_of_birth', date_of_birth: '2021-07-21 00:00:00 +0300') }
   it '.full_name' do
     expect(user.full_name).to eq('Den Joy')
@@ -31,7 +30,7 @@ describe 'User' do
   end
 
   it '#actions' do
-    expect(User.actions).to eq(%i[add_date_of_birth])
+    expect(User.actions).to eq(%i[add_date_of_birth add_vacation])
   end
 
   it '#default_state' do
@@ -41,9 +40,18 @@ describe 'User' do
   it '#default_state' do
     expect(User.default_state).to eq(:empty)
   end
-  
-  # context '#get_or_create_from_message' do
 
-  # end
-  
+  context '#get_or_create_from_message' do
+    it 'should return user when find by chat id' do
+      user = create(:user, chat_id: 1)
+      chat = double
+      allow(chat).to receive(:id).and_return(1)
+      message = double
+      allow(message).to receive(:chat).and_return(chat)
+
+      expect(User.get_or_create_from_message(message)).to eq(user)
+    end
+
+    # it 'should create a new user' do; end
+  end
 end
