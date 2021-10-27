@@ -6,6 +6,6 @@ class StartCommand < Command
   private
 
   def text
-    "#{user.full_name} #{user.username} #{user.date_of_birth}"
+    "Hello #{user.full_info}!"
   end
 end

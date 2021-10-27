@@ -59,7 +59,17 @@ class User < Sequel::Model(DB)
     action.split('_').collect(&:capitalize).join
   end
 
-  def log_statusp
+  def full_info
+    "#{full_name} #{username} #{date_of_birth_format}"
+  end
+
+  def log_status
     Log.info "#{full_name} chanched status to #{aasm(:actions).current_event}"
+  end
+
+  def in_action?
+    return false if action.nil? || action.empty?
+
+    User.actions.include? action.to_sym
   end
 end

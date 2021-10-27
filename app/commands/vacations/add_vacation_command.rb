@@ -1,5 +1,3 @@
-require 'byebug'
-
 class AddVacationCommand < Command
   def call
     user.add_vacation

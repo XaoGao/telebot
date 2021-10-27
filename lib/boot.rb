@@ -16,7 +16,7 @@ Dir[File.join(File.dirname(__FILE__), '..', 'lib', '*.rb')].sort.each(&method(:r
 
 Dir[File.join(File.dirname(__FILE__), '..', 'app', '**', '*.rb')].sort.each(&method(:require))
 
-if DB
+if File.exist?(db_config_file) && DB
   Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), '..', 'app', 'db', 'migrations'))
 end
 

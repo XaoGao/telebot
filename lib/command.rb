@@ -9,6 +9,6 @@ class Command
   end
 
   def call
-    # raise NotImplementedError, 'Implement this method in a child class'
+    raise NotImplementedError, 'Implement this method in a child class'
   end
 end

@@ -8,14 +8,13 @@ class CommandFactory
   end
 
   def create_command(routes)
-    if user_in_action? user
+    if user.in_action?
       return action
     end
     if routes.key?(message.text)
       return command(routes)
     end
-    # nil object
-    Command.new(bot, message, user)
+    NilCommand.new(bot, message, user)
   end
 
   private
@@ -28,9 +27,5 @@ class CommandFactory
   def action
     klass = Object.const_get("#{user.camelize_action}Action")
     klass.new(bot, message, user)
-  end
-
-  def user_in_action?(user)
-    User.actions.include? user.action.to_sym
   end
 end
