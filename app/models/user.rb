@@ -72,4 +72,8 @@ class User < Sequel::Model(DB)
 
     User.actions.include? action.to_sym
   end
+
+  def vacations?
+    vacations.any?
+  end
 end

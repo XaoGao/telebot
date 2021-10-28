@@ -4,6 +4,7 @@ require 'yaml'
 require 'sequel'
 require 'factory_bot'
 require 'database_cleaner-sequel'
+require_relative './support/helper_methods'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -26,7 +27,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    DatabaseCleaner[:sequel].strategy = :deletion
+    DatabaseCleaner[:sequel].strategy = :transaction
   end
 
   config.before(:each) do
@@ -36,6 +37,8 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner[:sequel].clean
   end
+
+  config.include HelperMethods
 end
 
 db_config_file = File.join(File.dirname(__FILE__), '..', 'app', 'db', 'database.yml')
@@ -53,4 +56,9 @@ if DB
   require_relative '../app/models/vacation'
   require_relative '../lib/command_factory'
   require_relative '../lib/router'
+  require_relative '../lib/bot_action'
+  require_relative '../lib/command'
+  require_relative '../lib/nil_command'
+  require_relative './support/dump_command'
+  require_relative './support/dump_action'
 end

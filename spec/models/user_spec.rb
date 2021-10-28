@@ -44,14 +44,29 @@ RSpec.describe 'User' do
   context '#get_or_create_from_message' do
     it 'should return user when find by chat id' do
       user = create(:user, chat_id: 1)
-      chat = double
-      allow(chat).to receive(:id).and_return(1)
-      message = double
-      allow(message).to receive(:chat).and_return(chat)
+      message = create_message(chat_id: 1)
 
       expect(User.get_or_create_from_message(message)).to eq(user)
     end
 
-    # it 'should create a new user' do; end
+    it 'should create a new user' do
+      message = create_message(chat_id: 2, first_name: 'Joy', last_name: 'Den', username: 'Ben')
+
+      new_user = User.get_or_create_from_message(message)
+      expect(new_user.username).to eq('Ben')
+      expect(new_user.chat_id).to eq(2)
+    end
+  end
+
+  context '.vacations?' do
+    it 'should retrun true when have vacations' do
+      user_with_vacations = create(:user)
+      create_list(:vacation, 2, user: user_with_vacations)
+      expect(user_with_vacations.vacations?).to be true
+    end
+
+    it 'should retrun false when have not vacations' do
+      expect(user.vacations?).to be false
+    end
   end
 end
