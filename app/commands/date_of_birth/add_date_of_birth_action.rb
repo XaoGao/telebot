@@ -6,7 +6,8 @@ class AddDateOfBirthAction < Command
     user.update(date_of_birth: date)
     send_message text: text(user.date_of_birth_format)
   rescue StandardError => e
-    send_message text: error
+    Log.error e.message
+    Log.error e.backtrace
   ensure
     user.clear
     user.save
