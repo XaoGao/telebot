@@ -1,6 +1,6 @@
 class AddVacationCommand < Command
   def call
-    user.add_vacation
+    user.add_new_vacation
     user.save
     send_message text: text
   end

@@ -1,12 +1,12 @@
 require 'date'
-require 'byebug'
 
-class AddVacationAction < Command
+class AddNewVacationAction < Command
   def call
     from_str, by_str = message.text.split('-')
     range = VacationRange.new(from_str, by_str)
 
-    user.vacations.create(from: range.from, by: range.by)
+    user.add_vacation(from: range.from, by: range.by)
+    user.save
     send_message text: text(message)
   rescue StandardError => e
     Log.error e.message
@@ -20,7 +20,7 @@ class AddVacationAction < Command
   private
 
   def text(message)
-    "Отпуск #{message.text} успешно сохранена"
+    "Отпуск #{message.text} успешно сохранен"
   end
 
   def error
