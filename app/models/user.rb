@@ -14,6 +14,7 @@ class User < Sequel::Model(DB)
     state :empty, initial: true
     state :add_date_of_birth
     state :add_new_vacation
+    state :show_weather
 
     event :add_date_of_birth do
       transitions from: :empty, to: :add_date_of_birth
@@ -21,6 +22,10 @@ class User < Sequel::Model(DB)
 
     event :add_new_vacation do
       transitions from: :empty, to: :add_new_vacation
+    end
+
+    event :show_weather do
+      transitions from: :empty, to: :show_weather
     end
 
     event :clear do

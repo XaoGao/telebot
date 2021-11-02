@@ -30,7 +30,7 @@ RSpec.describe 'User' do
   end
 
   it '#actions' do
-    expect(User.actions).to eq(%i[add_date_of_birth add_vacation])
+    expect(User.actions).to eq(%i[add_date_of_birth add_new_vacation show_weather])
   end
 
   it '#default_state' do

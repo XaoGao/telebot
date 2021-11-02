@@ -10,6 +10,7 @@ gem 'database_cleaner-sequel'
 gem 'dotenv-rails'
 gem 'factory_bot'
 gem 'faker'
+gem 'httparty'
 gem 'rspec'
 gem 'sequel'
 gem 'simplecov', require: false, group: :test
