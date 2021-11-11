@@ -20,5 +20,4 @@ if File.exist?(db_config_file) && DB
   Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), '..', 'app', 'db', 'migrations'))
 end
 
-TOKEN = ENV['TELEGRAM_BOT_TOKEN']
-ROUTES = YAML.load(File.read(File.join(File.dirname(__FILE__), '..', 'app', 'routes.yml')))
+Dir[File.join(File.dirname(__FILE__), '..', 'config', '**', '*.rb')].sort.each(&method(:require))

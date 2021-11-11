@@ -1,4 +1,3 @@
-# require './lib/boot'
 require './main'
 
 class App
