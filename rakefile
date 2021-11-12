@@ -15,7 +15,7 @@ namespace :g do
 
   desc 'generate an action'
   task :action, [:action_name] do |task, args|
-    action_name = add_extension_to_file "#{args[:command_name]}_action"
+    action_name = add_extension_to_file "#{args[:action_name]}_action"
     path_to_directory = File.join('app', 'commands')
     full_name = File.join(path_to_directory, action_name)
 
@@ -82,8 +82,15 @@ namespace :g do
   end
 
   def write_command_template_to_file(full_name, file_name)
+    str = <<-COMMAND
+class #{file_name.to_camel_case} < Command
+  def call
+    # pass
+  end
+end
+    COMMAND
     File.open(full_name, 'a') do |line|
-      line.puts "class #{file_name.to_camel_case} < Command\rend"
+      line.puts str
     end
   end
 
