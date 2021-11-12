@@ -1,8 +1,14 @@
 class AddDateOfBirthCommand < Command
   def call
     user.add_date_of_birth
-    user.save
-    send_message text: text
+    if user.valid?
+      user.save
+      send_message text: text
+    else
+      user.erros.each do |key, value|
+        send_message text: value
+      end
+    end
   end
 
   private

@@ -1,10 +1,12 @@
 require 'aasm'
 require_relative './concerns/date_formatter'
+require 'byebug'
 
 class User < Sequel::Model(DB)
   include AASM
   extend DateFormatter
   plugin :timestamps, update_on_create: true
+  plugin :validation_helpers
 
   one_to_many :vacations
 
@@ -38,6 +40,16 @@ class User < Sequel::Model(DB)
     end
 
     after_all_transitions :log_status
+  end
+
+  def validate
+    super
+    validates_presence [:chat_id]
+    if !date_of_birth.nil?
+      if (Time.now.year - date_of_birth.year) > 100 || (Time.now.year - date_of_birth.year).negative?
+        errors.add(:date_of_birth, 'Дата рождения не валидная')
+      end
+    end
   end
 
   def self.actions
