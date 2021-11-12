@@ -3,7 +3,7 @@ require_relative './lib/string'
 namespace :g do
   desc 'generate a command'
   task :command, [:command_name] do |task, args|
-    command_name = add_extension_to_file args[:command_name]
+    command_name = add_extension_to_file "#{args[:command_name]}_command"
     path_to_directory = File.join('app', 'commands')
     full_name = File.join(path_to_directory, command_name)
 
@@ -15,7 +15,7 @@ namespace :g do
 
   desc 'generate an action'
   task :action, [:action_name] do |task, args|
-    action_name = add_extension_to_file args[:action_name]
+    action_name = add_extension_to_file "#{args[:command_name]}_action"
     path_to_directory = File.join('app', 'commands')
     full_name = File.join(path_to_directory, action_name)
 

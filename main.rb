@@ -2,10 +2,10 @@ require 'dotenv/load'
 require 'telegram/bot'
 require './lib/boot'
 module TelegramBot
-  Telegram::Bot::Client.run(TOKEN) do |bot|
+  Telegram::Bot::Client.run(TOKEN, logger: Log) do |bot|
 
     router = Router.new(bot, ROUTES)
-    Log.info 'Start listen'
+    bot.logger.info('Bot has been started')
 
     bot.listen do |message|
       router.resolve(message)
