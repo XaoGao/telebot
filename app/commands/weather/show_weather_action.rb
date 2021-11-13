@@ -1,6 +1,4 @@
 class ShowWeatherAction < Command
-  attr_reader :wather
-
   def initialize(bot, message, user)
     super bot, message, user
 

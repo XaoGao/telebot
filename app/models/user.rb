@@ -1,6 +1,5 @@
 require 'aasm'
 require_relative './concerns/date_formatter'
-require 'byebug'
 
 class User < Sequel::Model(DB)
   include AASM

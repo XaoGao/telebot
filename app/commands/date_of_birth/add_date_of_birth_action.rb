@@ -1,6 +1,18 @@
 require 'date'
 class AddDateOfBirthAction < Command
   def call
+    add_date_of_birth
+  rescue StandardError => e
+    Log.error e.message
+    Log.error e.backtrace
+  ensure
+    user.clear
+    user.save
+  end
+
+  private
+
+  def add_date_of_birth
     old_date = user.date_of_birth
     new_date = parse_date_of_birth message
 
@@ -13,15 +25,7 @@ class AddDateOfBirthAction < Command
         send_message text: value
       end
     end
-  rescue StandardError => e
-    Log.error e.message
-    Log.error e.backtrace
-  ensure
-    user.clear
-    user.save
   end
-
-  private
 
   def text(date)
     "#{date} успешно сохранена"
