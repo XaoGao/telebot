@@ -3,9 +3,6 @@ require_relative './concerns/date_formatter'
 class Vacation < Sequel::Model(DB)
   extend DateFormatter
 
-  plugin :timestamps, update_on_create: true
-  plugin :validation_helpers
-
   many_to_one :user
 
   date :from, :by

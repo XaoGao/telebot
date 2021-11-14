@@ -9,6 +9,8 @@ if File.exist?(db_config_file)
   config = YAML.safe_load(File.read(db_config_file))
   DB = Sequel.connect(config['development'])
   Sequel::Model.plugin :timestamps, create: :created_on, update: :updated_on, update_on_create: true
+  Sequel::Model.plugin :touch
+  Sequel::Model.plugin :validation_helpers
   Sequel.extension :migration
 end
 

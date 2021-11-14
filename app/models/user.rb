@@ -4,8 +4,6 @@ require_relative './concerns/date_formatter'
 class User < Sequel::Model(DB)
   include AASM
   extend DateFormatter
-  plugin :timestamps, update_on_create: true
-  plugin :validation_helpers
 
   one_to_many :vacations
 
