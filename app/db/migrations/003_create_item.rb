@@ -6,6 +6,7 @@ Sequel.migration do
       String :name, null: false
       String :desc
       Float :price, null: false
+      String :image, null: false
 
       DateTime :created_at
       DateTime :updated_at
