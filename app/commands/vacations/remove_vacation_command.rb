@@ -1,19 +1,18 @@
 class RemoveVacationCommand < Command
-  def call
-    user.remove_exist_vacation
-    user.save
-    send_message text: text
-  rescue StandardError => e
-    Log.error e.message
-    Log.error e.backtrace
-    send_message text: 'Во время выполнения команды возникла ошибка, попробуйте позже'
-    user.clear
-    user.save
-  end
+  try :prepear_to_remove_vacation
+  when_error :cancel_action
 
   private
 
-  def text
-    'Укажите идентификатор отпуска, который будет удален'
+  def prepear_to_remove_vacation
+    user.remove_exist_vacation
+    user.save
+    send_message text: 'Укажите идентификатор отпуска, который будет удален'
+  end
+
+  def cancel_action
+    send_message text: 'Во время выполнения команды возникла ошибка, попробуйте позже'
+    user.clear
+    user.save
   end
 end

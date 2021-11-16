@@ -5,14 +5,22 @@ class ShowWeatherAction < Command
     @weathe_client = Weather.new
   end
 
-  def call
+  try :send_weather
+  when_error :send_error_message
+  finally :clear_user
+
+  private
+
+  def send_weather
     response = @weathe_client.by_city message.text
     send_message text: response.info
-  rescue StandardError => e
-    Log.error e.message
-    Log.error e.backtrace
+  end
+
+  def send_error_message
     send_message text: 'Ошибка во время получения погоды'
-  ensure
+  end
+
+  def clear_user
     user.clear
     user.save
   end

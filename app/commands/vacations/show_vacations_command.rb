@@ -1,5 +1,9 @@
 class ShowVacationsCommand < Command
-  def call
+  try :show_vacations
+
+  private
+
+  def show_vacations
     if user.vacations?
       user.vacations.each_with_index do |vacation, index|
         send_message text: "#{index + 1}) #{vacation.interval}; id = #{vacation.id}"

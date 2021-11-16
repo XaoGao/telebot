@@ -1,5 +1,10 @@
 class ChooseItemAction < Command
-  def call
-    # pass
+  try :pass
+
+  private
+
+  def pass
+    user.clear
+    user.save
   end
 end

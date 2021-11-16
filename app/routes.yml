@@ -1,6 +1,6 @@
 "/start" : "Start"
 "/stop" : "Stop"
-"/add_date_of_birth" : "AddDateOfBirth"
+"/update_date_of_birth" : "UpdateDateOfBirth"
 "/show_vacations" : "ShowVacations"
 "/add_vacation" : "AddVacation"
 "/remove_vacation" : "RemoveVacation"

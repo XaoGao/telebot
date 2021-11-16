@@ -1,5 +1,9 @@
 class ItemsCommand < Command
-  def call
+  try :prepear_to_choose_item
+
+  private
+
+  def prepear_to_choose_item
     user.choose_item
     user.save
 

@@ -1,11 +1,13 @@
 class AddVacationCommand < Command
-  def call
+  try :prepear_to_add_vacation
+
+  private
+
+  def prepear_to_add_vacation
     user.add_new_vacation
     user.save
     send_message text: text
   end
-
-  private
 
   def text
     'Укажите дату в формате dd.MM.yyyy - dd.MM.yyyy'

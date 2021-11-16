@@ -1,14 +1,7 @@
 class RemoveExistVacationAction < Command
-  def call
-    remove_vacation
-  rescue StandardError => e
-    Log.error e.message
-    Log.error e.backtrace
-    send_message text: error
-  ensure
-    user.clear
-    user.save
-  end
+  try :remove_vacation
+  when_error :send_error_message
+  finally :clear_user
 
   private
 
@@ -20,14 +13,15 @@ class RemoveExistVacationAction < Command
     end
     user.remove_vacation(vacation)
     user.save
-    send_message text: text
+    send_message text: 'Отпуск успешно удален'
   end
 
-  def text
-    'Отпуск успешно удален'
+  def send_error_message
+    send_message text: 'Ошибка при удалении отпуска'
   end
 
-  def error
-    'Ошибка при удалении отпуска'
+  def clear_user
+    user.clear
+    user.save
   end
 end

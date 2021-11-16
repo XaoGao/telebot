@@ -11,14 +11,14 @@ class User < Sequel::Model(DB)
 
   aasm :actions, column: :action do
     state :empty, initial: true
-    state :add_date_of_birth
+    state :update_date_of_birth
     state :add_new_vacation
     state :remove_exist_vacation
     state :show_weather
     state :choose_item
 
-    event :add_date_of_birth do
-      transitions from: :empty, to: :add_date_of_birth
+    event :update_date_of_birth do
+      transitions from: :empty, to: :update_date_of_birth
     end
 
     event :add_new_vacation do
@@ -84,7 +84,13 @@ class User < Sequel::Model(DB)
   end
 
   def full_info
-    "#{full_name} #{username} #{date_of_birth_format}"
+    date = if !date_of_birth.nil?
+             date_of_birth_format
+           else
+             ''
+           end
+
+    "#{full_name} #{username} #{date}"
   end
 
   def log_status

@@ -1,13 +1,11 @@
 class WeatherCommand < Command
-  def call
-    user.show_weather
-    user.save
-    send_message text: text
-  end
+  try :prepear_to_get_city_name
 
   private
 
-  def text
-    'Укажите город'
+  def prepear_to_get_city_name
+    user.show_weather
+    user.save
+    send_message text: 'Укажите город'
   end
 end
