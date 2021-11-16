@@ -78,11 +78,6 @@ class User < Sequel::Model(DB)
     "#{last_name} #{first_name}"
   end
 
-  # convert action name to class name, example: add_date_of_birth -> AddDateOfBirth
-  def camelize_action
-    action.split('_').collect(&:capitalize).join
-  end
-
   def full_info
     date = if !date_of_birth.nil?
              date_of_birth_format

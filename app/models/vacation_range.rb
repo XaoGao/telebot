@@ -6,7 +6,7 @@ class VacationRange
     @by = parse_date 'by', by_str
 
     if @from > @by
-      raise ArgumentError "Date 'from' more 'by' it can not be!"
+      raise ArgumentError, "Date 'from' more 'by' it can not be!"
     end
   end
 
@@ -14,7 +14,7 @@ class VacationRange
 
   def parse_date(var_name, date_str)
     if date_str.nil? || date_str.empty?
-      raise ArgumentError "Date '#{var_name}' can not be nil or empty!"
+      raise ArgumentError, "Date '#{var_name}' can not be nil or empty!"
     end
 
     DateTime.parse date_str

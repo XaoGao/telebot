@@ -1,4 +1,3 @@
-require 'byebug'
 class Command
   include BotAction
   attr_reader :bot, :message, :user

@@ -17,38 +17,40 @@ RSpec.describe 'CommandFactory' do
     end
   end
 
-  context '.create_command' do
-    let(:user) { create(:user) }
-    let(:message) { create_message(chat_id: 1, text: '/dump') }
-    let(:subject) { CommandFactory.new('Fake_bot', message, user) }
-    it 'should return nil command' do
-      subject = CommandFactory.new('Fake_bot', message, user)
-      command = subject.create_command({})
-      expect(command.class.to_s).to eq('NilCommand')
-    end
-  end
+  # context '.create_command' do
+  #   let(:user) { create(:user) }
+  #   let(:message) { create_message(chat_id: 1, text: '/dump') }
+  #   let(:bot) { 'fake_bot' }
+  #   let(:subject) { CommandFactory.new(bot, message, user) }
 
-  describe 'private methods' do
-    let(:user) { create(:user) }
-    let(:message) { create_message(chat_id: 1) }
-    let(:subject) { CommandFactory.new('Fake_bot', message, user) }
-    context '.command' do
-      let(:routes) { read_routes }
-      let(:message) { create_message(chat_id: 1, text: '/dump') }
+  #   it 'should return nil command' do
+  #     subject = CommandFactory.new('Fake_bot', message, user)
+  #     command = subject.create_command({})
+  #     expect(command.class.to_s).to eq('NilCommand')
+  #   end
+  # end
 
-      it 'should return a new instance dump command class' do
-        command = subject.send(:command, routes)
-        expect(command.class.to_s).to eq('DumpCommand')
-      end
-    end
+  # describe 'private methods' do
+  #   let(:user) { create(:user) }
+  #   let(:message) { create_message(chat_id: 1) }
+  #   let(:subject) { CommandFactory.new('Fake_bot', message, user) }
+  #   context '.command' do
+  #     let(:routes) { read_routes }
+  #     let(:message) { create_message(chat_id: 1, text: '/dump') }
 
-    context '.action' do
-      let(:user) { create(:user, action: 'dump') }
+  #     it 'should return a new instance dump command class' do
+  #       command = subject.send(:command, routes)
+  #       expect(command.class.to_s).to eq('DumpCommand')
+  #     end
+  #   end
 
-      it 'should return a new instance dump action class' do
-        command = subject.send(:action)
-        expect(command.class.to_s).to eq('DumpAction')
-      end
-    end
-  end
+  #   context '.action' do
+  #     let(:user) { create(:user, action: 'dump') }
+
+  #     it 'should return a new instance dump action class' do
+  #       command = subject.send(:action)
+  #       expect(command.class.to_s).to eq('DumpAction')
+  #     end
+  #   end
+  # end
 end

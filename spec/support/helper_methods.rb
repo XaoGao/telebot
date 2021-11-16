@@ -1,5 +1,3 @@
-require 'byebug'
-
 module HelperMethods
   def read_routes
     _routes ||= YAML.load(File.read(File.join(File.dirname(__FILE__), 'test_routes.yml')))

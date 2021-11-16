@@ -46,6 +46,8 @@ if File.exist?(db_config_file)
   config = YAML.safe_load(File.read(db_config_file))
   DB = Sequel.connect(config['test'])
   Sequel::Model.plugin :timestamps, create: :created_on, update: :updated_on, update_on_create: true
+  Sequel::Model.plugin :touch
+  Sequel::Model.plugin :validation_helpers
   Sequel.extension :migration
 end
 
@@ -54,11 +56,13 @@ if DB
 
   require_relative '../app/models/user'
   require_relative '../app/models/vacation'
+  require_relative '../app/models/vacation_range'
   require_relative '../lib/command_factory'
   require_relative '../lib/router'
   require_relative '../lib/bot_action'
   require_relative '../lib/command'
   require_relative '../lib/nil_command'
+  require_relative '../lib/string'
   require_relative './support/dump_command'
   require_relative './support/dump_action'
 end

@@ -25,7 +25,7 @@ class CommandFactory
   end
 
   def action
-    klass = Object.const_get("#{user.camelize_action}Action")
+    klass = Object.const_get("#{user.action.to_camel_case}Action")
     klass.new(bot, message, user)
   end
 end

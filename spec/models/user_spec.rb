@@ -1,21 +1,24 @@
 require_relative '../spec_helper'
 
 RSpec.describe 'User' do
-  let(:user) { build(:user, username: 'simple_user', first_name: 'Joy', last_name: 'Den', action: 'add_date_of_birth', date_of_birth: '2021-07-21 00:00:00 +0300') }
+  let(:user) { build(:user, username: 'simple_user', first_name: 'Joy', last_name: 'Den', action: 'update_date_of_birth', date_of_birth: '2021-07-21 00:00:00 +0300') }
   it '.full_name' do
     expect(user.full_name).to eq('Den Joy')
-  end
-
-  it '.camelize_action' do
-    expect(user.camelize_action).to eq('AddDateOfBirth')
   end
 
   it '.date_of_birth_format' do
     expect(user.date_of_birth_format).to eq('21.07.2021')
   end
 
-  it '.full_info' do
-    expect(user.full_info).to eq('Den Joy simple_user 21.07.2021')
+  context '.full_info' do
+    it 'when user have date of birth' do
+      expect(user.full_info).to eq('Den Joy simple_user 21.07.2021')
+    end
+
+    it 'when user have not date of birth' do
+      user.date_of_birth = nil
+      expect(user.full_info).to eq('Den Joy simple_user ')
+    end
   end
 
   context '.in_action?' do
@@ -29,12 +32,29 @@ RSpec.describe 'User' do
     end
   end
 
-  it '#actions' do
-    expect(User.actions).to eq(%i[add_date_of_birth add_new_vacation show_weather])
+  describe 'validates' do
+    context 'date of birth' do
+      it 'should return error message date of birth more date now' do
+        user = build(:user, date_of_birth: '3021-07-21 00:00:00 +0300')
+        expect(user.valid?).to be false
+        expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная'])
+      end
+
+      it 'should return error message date of birth to less' do
+        user = build(:user, date_of_birth: '1900-07-21 00:00:00 +0300')
+        expect(user.valid?).to be false
+        expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная'])
+      end
+
+      it 'should be valid' do
+        user = build(:user, date_of_birth: '2020-07-21 00:00:00 +0300')
+        expect(user.valid?).to be true
+      end
+    end
   end
 
-  it '#default_state' do
-    expect(User.default_state).to eq(:empty)
+  it '#actions' do
+    expect(User.actions).to eq(%i[update_date_of_birth add_new_vacation remove_exist_vacation show_weather choose_item])
   end
 
   it '#default_state' do
