@@ -9,7 +9,7 @@ class ShowWeatherAction < Command
 
   try :send_weather
   when_error :send_error
-  finally :clear_user
+  finally :command_done
 
   private
 
@@ -20,10 +20,5 @@ class ShowWeatherAction < Command
 
   def send_error
     send_message text: 'Ошибка во время получения погоды'
-  end
-
-  def clear_user
-    user.clear
-    user.save
   end
 end

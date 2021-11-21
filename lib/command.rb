@@ -22,6 +22,12 @@ class Command
     send(self.class.after_call_step) unless self.class.after_call_step.nil?
   end
 
+  def command_done
+    user.clear
+    user.save
+  end
+  
+
   class << self
     attr_reader :before_call_step, :after_call_step, :try_step, :when_error_step, :finally_step
 

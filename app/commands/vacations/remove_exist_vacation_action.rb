@@ -3,7 +3,7 @@
 class RemoveExistVacationAction < Command
   try :remove_vacation
   when_error :send_error
-  finally :clear_user
+  finally :command_done
 
   private
 
@@ -20,10 +20,5 @@ class RemoveExistVacationAction < Command
 
   def send_error
     send_message text: 'Ошибка при удалении отпуска'
-  end
-
-  def clear_user
-    user.clear
-    user.save
   end
 end

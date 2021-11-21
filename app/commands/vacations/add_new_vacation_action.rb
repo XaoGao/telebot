@@ -5,7 +5,7 @@ require 'date'
 class AddNewVacationAction < Command
   try :add_vacation
   when_error :send_error
-  finally :clear_user
+  finally :command_done
 
   private
 
@@ -20,11 +20,6 @@ class AddNewVacationAction < Command
 
   def send_error
     send_message text: 'Некорректный форматы даты!'
-  end
-
-  def clear_user
-    user.clear
-    user.save
   end
 
   def success_message(message)
