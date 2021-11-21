@@ -4,6 +4,9 @@ class Command
   include BotAction
   attr_reader :bot, :message, :user
 
+  CALL_BACKS = %i[before_call after_call try when_error finally].freeze
+  private_constant :CALL_BACKS
+
   def initialize(bot, message, user)
     @bot = bot
     @message = message
@@ -30,26 +33,14 @@ class Command
   end
 
   class << self
-    attr_reader :before_call_step, :after_call_step, :try_step, :when_error_step, :finally_step
-
-    def before_call(method_name)
-      @before_call_step = method_name.to_sym
+    CALL_BACKS.each do |callback_name|
+      attr_reader "#{callback_name}_step".to_sym
     end
+  end
 
-    def after_call(method_name)
-      @after_call_step = method_name.to_sym
-    end
-
-    def try(method_name)
-      @try_step = method_name.to_sym
-    end
-
-    def when_error(method_name)
-      @when_error_step = method_name.to_sym
-    end
-
-    def finally(method_name)
-      @finally_step = method_name.to_sym
+  CALL_BACKS.each do |callback_name|
+    define_singleton_method(callback_name.to_sym) do |value|
+      instance_variable_set("@#{callback_name}_step", value.to_sym)
     end
   end
 end
