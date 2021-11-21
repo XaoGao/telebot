@@ -8,7 +8,7 @@ class ShowWeatherAction < Command
   end
 
   try :send_weather
-  when_error :send_error_message
+  when_error :send_error
   finally :clear_user
 
   private
@@ -18,7 +18,7 @@ class ShowWeatherAction < Command
     send_message text: response.info
   end
 
-  def send_error_message
+  def send_error
     send_message text: 'Ошибка во время получения погоды'
   end
 

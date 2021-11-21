@@ -4,7 +4,7 @@ require 'date'
 
 class UpdateDateOfBirthAction < Command
   try :add_date_of_birth
-  when_error :catch_error
+  when_error :send_error
   finally :clear_user
 
   private
@@ -20,7 +20,7 @@ class UpdateDateOfBirthAction < Command
     end
   end
 
-  def catch_error
+  def send_error
     send_message text: 'Некорректный формат даты!'
   end
 

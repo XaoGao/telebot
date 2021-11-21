@@ -9,39 +9,20 @@ class Command
   end
 
   def call
-    if !self.class.before_call_step.nil?
-      send(self.class.before_call_step)
-    end
-
+    send(self.class.before_call_step) unless self.class.before_call_step.nil?
     begin
-      if !self.class.try_step.nil?
-        send(self.class.try_step)
-      end
+      send(self.class.try_step) unless self.class.try_step.nil?
     rescue StandardError => e
-      if !self.class.when_error_step.nil?
-        send(self.class.when_error_step)
-      end
+      send(self.class.when_error_step) unless self.class.when_error_step.nil?
       Log.error e.message
       Log.error e.backtrace
     ensure
-      if !self.class.finally_step.nil?
-        send(self.class.finally_step)
-      end
+      send(self.class.finally_step) unless self.class.finally_step.nil?
     end
-    if !self.class.after_call_step.nil?
-      send(self.class.after_call_step)
-    end
+    send(self.class.after_call_step) unless self.class.after_call_step.nil?
   end
 
   class << self
-    %i[before_call after_call try when_error finally].each do |call_back_method|
-      send(:attr_reader, "#{call_back_method}_step")
-
-      define_method(call_back_method.to_sym) do |method_name_user|
-        send(:@"#{}")
-      end
-    end
-
     attr_reader :before_call_step, :after_call_step, :try_step, :when_error_step, :finally_step
 
     def before_call(method_name)
