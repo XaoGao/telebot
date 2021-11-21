@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ShowVacationsCommand < Command
   try :show_vacations
 

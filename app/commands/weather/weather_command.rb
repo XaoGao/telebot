@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WeatherCommand < Command
   try :prepear_to_get_city_name
 

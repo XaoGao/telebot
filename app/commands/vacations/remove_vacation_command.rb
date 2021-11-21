@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveVacationCommand < Command
   try :prepear_to_remove_vacation
   when_error :cancel_action

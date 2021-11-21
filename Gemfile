@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
@@ -13,6 +13,9 @@ gem 'faker', '~> 2.19'
 gem 'httparty', '~> 0.20.0'
 gem 'rack', '~> 2.2', '>= 2.2.3'
 gem 'rspec', '~> 3.10'
+gem 'rubocop', '~> 1.23', require: false
+gem 'rubocop-performance', '~> 1.12', require: false
+gem 'rubocop-rspec', '~> 2.6', require: false
 gem 'sequel', '~> 5.46'
 gem 'sidekiq', '~> 6.3', '>= 6.3.1'
 gem 'simplecov', '~> 0.21.2', require: false, group: :test

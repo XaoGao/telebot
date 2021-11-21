@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveExistVacationAction < Command
   try :remove_vacation
   when_error :send_error_message

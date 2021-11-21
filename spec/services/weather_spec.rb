@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'Weather' do
   describe '.by_city' do
     it 'test' do

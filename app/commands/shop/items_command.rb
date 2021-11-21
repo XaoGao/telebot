@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ItemsCommand < Command
   try :prepear_to_choose_item
 

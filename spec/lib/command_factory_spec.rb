@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 require_relative '../spec_helper'
 
 RSpec.describe 'CommandFactory' do
-  context '.initialize' do
+  describe '.initialize' do
     let(:subject) { CommandFactory.new('Fake_bot', 'Fake_message', 'Fake_user') }
 
-    it 'should set a bot' do
+    it 'sets a bot' do
       expect(subject.instance_variable_get(:@bot)).to eq('Fake_bot')
     end
 
-    it 'should set a message' do
+    it 'sets a message' do
       expect(subject.instance_variable_get(:@message)).to eq('Fake_message')
     end
 
-    it 'should set a user' do
+    it 'sets a user' do
       expect(subject.instance_variable_get(:@user)).to eq('Fake_user')
     end
   end

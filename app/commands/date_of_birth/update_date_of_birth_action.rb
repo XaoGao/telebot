@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'date'
 
 class UpdateDateOfBirthAction < Command
@@ -8,7 +10,6 @@ class UpdateDateOfBirthAction < Command
   private
 
   def add_date_of_birth
-    old_date = user.date_of_birth
     new_date = parse_date_of_birth message
 
     user.date_of_birth = new_date
@@ -37,8 +38,7 @@ class UpdateDateOfBirthAction < Command
   end
 
   def send_message_date_is_invalid
-    user.date_of_birth = old_date
-    user.errors.each do |key, value|
+    user.errors.each do |_key, value|
       send_message text: value
     end
   end

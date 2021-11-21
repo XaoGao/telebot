@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateDateOfBirthCommand < Command
   try :prepear_to_update_date_of_birth
 
@@ -9,7 +11,7 @@ class UpdateDateOfBirthCommand < Command
       user.save
       send_message text: text
     else
-      user.erros.each do |key, value|
+      user.erros.each do |_key, value|
         send_message text: value
       end
     end

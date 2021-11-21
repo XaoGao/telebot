@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'logger'
 require 'forwardable'
 
@@ -9,7 +11,7 @@ class Log
     private
 
     def logger
-      @logger ||= Logger.new(STDOUT)
+      @logger ||= Logger.new($stdout)
     end
   end
 end

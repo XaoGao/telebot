@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VacationRange
   attr_reader :from, :by
 
@@ -5,17 +7,13 @@ class VacationRange
     @from = parse_date 'from', from_str
     @by = parse_date 'by', by_str
 
-    if @from > @by
-      raise ArgumentError, "Date 'from' more 'by' it can not be!"
-    end
+    raise ArgumentError, "Date 'from' more 'by' it can not be!" if @from > @by
   end
 
   private
 
   def parse_date(var_name, date_str)
-    if date_str.nil? || date_str.empty?
-      raise ArgumentError, "Date '#{var_name}' can not be nil or empty!"
-    end
+    raise ArgumentError, "Date '#{var_name}' can not be nil or empty!" if date_str.nil? || date_str.empty?
 
     DateTime.parse date_str
   end

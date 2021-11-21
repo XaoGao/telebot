@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ShowWeatherAction < Command
   def initialize(bot, message, user)
     super bot, message, user

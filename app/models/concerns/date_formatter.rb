@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DateFormatter
   def date(*args)
     args.each do |arg|

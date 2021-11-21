@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 SimpleCov.start
 require 'yaml'
@@ -26,15 +28,15 @@ RSpec.configure do |config|
     FactoryBot.find_definitions
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner[:sequel].strategy = :transaction
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner[:sequel].start
   end
 
-  config.after(:each) do
+  config.after do
     DatabaseCleaner[:sequel].clean
   end
 

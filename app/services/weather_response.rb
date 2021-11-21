@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WeatherResponse
   attr_reader :temp_c, :wind_mph, :condition
 

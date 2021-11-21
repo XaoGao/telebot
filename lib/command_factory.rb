@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommandFactory
   attr_reader :bot, :message, :user
 
@@ -8,12 +10,9 @@ class CommandFactory
   end
 
   def create_command(routes)
-    if user.in_action?
-      return action
-    end
-    if routes.key?(message.text)
-      return command(routes)
-    end
+    return action if user.in_action?
+    return command(routes) if routes.key?(message.text)
+
     NilCommand.new(bot, message, user)
   end
 

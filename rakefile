@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require_relative './lib/string'
 
 namespace :g do
   desc 'generate a command'
-  task :command, [:command_name] do |task, args|
+  task :command, [:command_name] do |_task, args|
     command_name = add_extension_to_file "#{args[:command_name]}_command"
     path_to_directory = File.join('app', 'commands')
     full_name = File.join(path_to_directory, command_name)
@@ -14,7 +16,7 @@ namespace :g do
   end
 
   desc 'generate an action'
-  task :action, [:action_name] do |task, args|
+  task :action, [:action_name] do |_task, args|
     action_name = add_extension_to_file "#{args[:action_name]}_action"
     path_to_directory = File.join('app', 'commands')
     full_name = File.join(path_to_directory, action_name)
@@ -32,7 +34,7 @@ namespace :g do
   end
 
   desc 'generate a migration'
-  task :migration, [:migration_name] do |task, args|
+  task :migration, [:migration_name] do |_task, args|
     migration = args[:migration_name]
     path_to_migrations = File.join('app', 'db', 'migrations')
     create_directory path_to_migrations.split('/')
@@ -40,7 +42,12 @@ namespace :g do
     existed_migrations = Dir["#{path_to_migrations}/*.rb"].sort
     last_migration = existed_migrations.last.split('/').last
 
-    current_number_of_migration = last_migration.nil? ? '001' : format('%03d', (last_migration.split('_').first.to_i + 1))
+    current_number_of_migration = if last_migration.nil?
+                                    '001'
+                                  else
+                                    format('%03d',
+                                           (last_migration.split('_').first.to_i + 1))
+                                  end
     migration_name = File.join(path_to_migrations, [current_number_of_migration, "#{migration}.rb"].join('_'))
     touch migration_name
 
@@ -48,7 +55,7 @@ namespace :g do
   end
 
   desc 'generate a model with migration'
-  task :model, [:model_name] do |task, args|
+  task :model, [:model_name] do |_task, args|
     migration = "create_#{args[:model_name]}"
     path_to_migrations = File.join('app', 'db', 'migrations')
     create_directory path_to_migrations.split('/')
@@ -56,7 +63,12 @@ namespace :g do
     existed_migrations = Dir["#{path_to_migrations}/*.rb"].sort
     last_migration = existed_migrations.last.split('/').last
 
-    current_number_of_migration = last_migration.nil? ? '001' : format('%03d', (last_migration.split('_').first.to_i + 1))
+    current_number_of_migration = if last_migration.nil?
+                                    '001'
+                                  else
+                                    format('%03d',
+                                           (last_migration.split('_').first.to_i + 1))
+                                  end
     migration_name = File.join(path_to_migrations, [current_number_of_migration, "#{migration}.rb"].join('_'))
     touch migration_name
 
@@ -75,19 +87,17 @@ namespace :g do
     path_to_file = ''
     path_to_directory.each do |dir|
       path_to_file += "#{dir}/"
-      if !File.directory? path_to_file
-        mkdir path_to_file
-      end
+      mkdir path_to_file unless File.directory? path_to_file
     end
   end
 
   def write_command_template_to_file(full_name, file_name)
-    str = <<-COMMAND
-class #{file_name.to_camel_case} < Command
-  def call
-    # pass
-  end
-end
+    str = <<~COMMAND
+      class #{file_name.to_camel_case} < Command
+        def call
+          # pass
+        end
+      end
     COMMAND
     File.open(full_name, 'a') do |line|
       line.puts str
@@ -95,16 +105,16 @@ end
   end
 
   def write_migration_template_to_file(full_name)
-    str = <<-MIGRATION
-Sequel.migration do
-  up do
+    str = <<~MIGRATION
+      Sequel.migration do
+        up do
 
-  end
+        end
 
-  down do
+        down do
 
-  end
-end
+        end
+      end
     MIGRATION
 
     File.open(full_name, 'a') do |line|
@@ -113,21 +123,21 @@ end
   end
 
   def write_create_migration_template_to_file(full_name, model_name)
-    str = <<-MIGRATION
-Sequel.migration do
-  up do
-    create_table(:#{model_name}s) do
-      primary_key :id
+    str = <<~MIGRATION
+      Sequel.migration do
+        up do
+          create_table(:#{model_name}s) do
+            primary_key :id
 
-      DateTime :created_at
-      DateTime :updated_at
-    end
-  end
+            DateTime :created_at
+            DateTime :updated_at
+          end
+        end
 
-  down do
-    drop_table(:#{model_name}s)
-  end
-end
+        down do
+          drop_table(:#{model_name}s)
+        end
+      end
     MIGRATION
 
     File.open(full_name, 'a') do |line|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddVacationCommand < Command
   try :prepear_to_add_vacation
 

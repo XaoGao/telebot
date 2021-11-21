@@ -34,6 +34,14 @@ class Command
   end
 
   class << self
+    %i[before_call after_call try when_error finally].each do |call_back_method|
+      send(:attr_reader, "#{call_back_method}_step")
+
+      define_method(call_back_method.to_sym) do |method_name_user|
+        send(:@"#{}")
+      end
+    end
+
     attr_reader :before_call_step, :after_call_step, :try_step, :when_error_step, :finally_step
 
     def before_call(method_name)

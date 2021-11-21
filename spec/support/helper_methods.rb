@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module HelperMethods
   def read_routes
-    _routes ||= YAML.load(File.read(File.join(File.dirname(__FILE__), 'test_routes.yml')))
+    _routes ||= YAML.safe_load(File.read(File.join(File.dirname(__FILE__), 'test_routes.yml')))
   end
 
   def create_message(options)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StopCommand < Command
   try :send_bye
 

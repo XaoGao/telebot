@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './concerns/date_formatter'
 
 class Vacation < Sequel::Model(DB)
@@ -9,8 +11,8 @@ class Vacation < Sequel::Model(DB)
 
   def validate
     super
-    validates_presence [:from, :by]
-    validates_unique [:from, :by]
+    validates_presence %i[from by]
+    validates_unique %i[from by]
   end
 
   def interval

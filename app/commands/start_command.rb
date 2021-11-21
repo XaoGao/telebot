@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StartCommand < Command
   try :send_hello
 

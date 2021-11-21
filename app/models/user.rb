@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'aasm'
 require_relative './concerns/date_formatter'
 
@@ -47,10 +49,8 @@ class User < Sequel::Model(DB)
   def validate
     super
     validates_presence [:chat_id]
-    if !date_of_birth.nil?
-      if (Time.now.year - date_of_birth.year) > 100 || (Time.now.year - date_of_birth.year).negative?
-        errors.add(:date_of_birth, 'Дата рождения не валидная')
-      end
+    if !date_of_birth.nil? && (year_of_date_of_birth_to_mach? || year_of_date_of_birth_negative?)
+      errors.add(:date_of_birth, 'Дата рождения не валидная')
     end
   end
 
@@ -79,10 +79,10 @@ class User < Sequel::Model(DB)
   end
 
   def full_info
-    date = if !date_of_birth.nil?
-             date_of_birth_format
-           else
+    date = if date_of_birth.nil?
              ''
+           else
+             date_of_birth_format
            end
 
     "#{full_name} #{username} #{date}"
@@ -100,5 +100,15 @@ class User < Sequel::Model(DB)
 
   def vacations?
     vacations.any?
+  end
+
+  private
+
+  def year_of_date_of_birth_to_mach?
+    (Time.now.year - date_of_birth.year) > 100
+  end
+
+  def year_of_date_of_birth_negative?
+    (Time.now.year - date_of_birth.year).negative?
   end
 end
