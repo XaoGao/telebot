@@ -20,11 +20,8 @@ class User < Sequel::Model(DB)
   end
 
   def self.actions
+    default_state = User.aasm(:actions).initial_state
     aasm(:actions).states.map(&:name).filter { |a| a != default_state }
-  end
-
-  def self.default_state
-    User.aasm(:actions).initial_state
   end
 
   def self.get_or_create_from_message(message)
@@ -44,11 +41,7 @@ class User < Sequel::Model(DB)
   end
 
   def full_info
-    date = if date_of_birth.nil?
-             ''
-           else
-             date_of_birth_format
-           end
+    date = date_of_birth.nil? ? '' : date_of_birth_format
 
     "#{full_name} #{username} #{date}"
   end
@@ -62,11 +55,6 @@ class User < Sequel::Model(DB)
   def vacations?
     vacations.any?
   end
-
-  def log_status
-    Log.info "#{full_name} chanched status to #{aasm(:actions).current_event}"
-  end
-  # after_all_transitions :log_status
 
   private
 

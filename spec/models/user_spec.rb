@@ -63,10 +63,6 @@ RSpec.describe 'User' do
     expect(User.actions).to eq(%i[update_date_of_birth add_new_vacation remove_exist_vacation show_weather choose_item])
   end
 
-  it '#default_state' do
-    expect(User.default_state).to eq(:empty)
-  end
-
   describe '#get_or_create_from_message' do
     it 'returns user when find by chat id' do
       user = create(:user, chat_id: 1)
