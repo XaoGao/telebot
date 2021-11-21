@@ -4,7 +4,7 @@ require_relative './concerns/date_formatter'
 require_relative './concerns/user_aasm'
 
 class User < Sequel::Model(DB)
-  extend DateFormatter
+  include DateFormatter
   include UserAasm
 
   one_to_many :vacations
