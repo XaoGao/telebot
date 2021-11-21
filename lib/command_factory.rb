@@ -10,7 +10,7 @@ class CommandFactory
   end
 
   def create_command(routes)
-    return action if user.in_action?
+    return action if user&.in_action?
     return command(routes) if routes.key?(message.text)
 
     NilCommand.new(bot, message, user)

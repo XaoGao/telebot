@@ -6,7 +6,7 @@ class ChooseItemAction < Command
   private
 
   def pass
-    user.clear
+    user.close_command
     user.save
   end
 end

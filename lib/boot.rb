@@ -4,6 +4,7 @@ require 'yaml'
 require 'sequel'
 require_relative './log'
 require 'byebug'
+require 'date'
 
 Log.info 'Boot app'
 

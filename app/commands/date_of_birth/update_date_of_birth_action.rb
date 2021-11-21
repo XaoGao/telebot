@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'date'
-
 class UpdateDateOfBirthAction < Command
   try :add_date_of_birth
   when_error :send_error

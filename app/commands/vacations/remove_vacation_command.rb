@@ -14,7 +14,6 @@ class RemoveVacationCommand < Command
 
   def cancel_action
     send_message text: 'Во время выполнения команды возникла ошибка, попробуйте позже'
-    user.clear
-    user.save
+    user.close_command
   end
 end

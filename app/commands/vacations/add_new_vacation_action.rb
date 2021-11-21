@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'date'
-
 class AddNewVacationAction < Command
   try :add_vacation
   when_error :send_error

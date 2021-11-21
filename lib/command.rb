@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Command
   include BotAction
   attr_reader :bot, :message, :user
@@ -23,10 +25,9 @@ class Command
   end
 
   def command_done
-    user.clear
+    user.close_command
     user.save
   end
-  
 
   class << self
     attr_reader :before_call_step, :after_call_step, :try_step, :when_error_step, :finally_step

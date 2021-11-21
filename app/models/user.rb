@@ -14,7 +14,7 @@ class User < Sequel::Model(DB)
   def validate
     super
     validates_presence [:chat_id]
-    if !date_of_birth.nil? && (year_of_date_of_birth_to_mach? || year_of_date_of_birth_negative?)
+    if date_of_birth_invalid?
       errors.add(:date_of_birth, 'Дата рождения не валидная')
     end
   end
@@ -63,7 +63,16 @@ class User < Sequel::Model(DB)
     vacations.any?
   end
 
+  def log_status
+    Log.info "#{full_name} chanched status to #{aasm(:actions).current_event}"
+  end
+  # after_all_transitions :log_status
+
   private
+
+  def date_of_birth_invalid?
+    !date_of_birth.nil? && (year_of_date_of_birth_to_mach? || year_of_date_of_birth_negative?)
+  end
 
   def year_of_date_of_birth_to_mach?
     (Time.now.year - date_of_birth.year) > 100
