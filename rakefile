@@ -93,10 +93,12 @@ namespace :g do
 
   def write_command_template_to_file(full_name, file_name)
     str = <<~COMMAND
-      class #{file_name.to_camel_case} < Command
-        def call
-          # pass
-        end
+      class #{file_name.to_camel_case} < CommandBase
+        # before_call :some_method
+        # try         :some_method
+        # when_error  :some_method
+        # finally     :some_method
+        # after_call  :some_method
       end
     COMMAND
     File.open(full_name, 'a') do |line|
@@ -147,7 +149,7 @@ namespace :g do
 
   def write_model_template_to_file(full_name, model_name)
     File.open(full_name, 'a') do |line|
-      line.puts "class #{model_name.to_camel_case} < Sequel::Model(DB)\r  plugin :timestamps, update_on_create: true\rend"
+      line.puts "class #{model_name.to_camel_case} < Sequel::Model(DB)\rend"
     end
   end
 

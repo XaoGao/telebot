@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-class NilCommand < Command
+class NilCommand < CommandBase
 end

@@ -14,22 +14,27 @@ class CommandBase
   end
 
   def call
-    send(self.class.before_call_step) unless self.class.before_call_step.nil?
+    send_call_back(:before_call)
     begin
-      send(self.class.try_step) unless self.class.try_step.nil?
+      send_call_back(:try)
     rescue StandardError => e
-      send(self.class.when_error_step) unless self.class.when_error_step.nil?
+      send_call_back(:when_error)
       Log.error e.message
       Log.error e.backtrace
     ensure
-      send(self.class.finally_step) unless self.class.finally_step.nil?
+      send_call_back(:finally)
     end
-    send(self.class.after_call_step) unless self.class.after_call_step.nil?
+    send_call_back(:after_call)
   end
 
   def command_done
     user.close_command
     user.save
+  end
+
+  def send_call_back(call_back_name)
+    step = self.class.send("#{call_back_name}_step")
+    send(self.class.send("#{call_back_name}_step")) unless step.nil?
   end
 
   class << self
