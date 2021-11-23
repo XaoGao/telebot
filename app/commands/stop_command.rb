@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class StopCommand < Command
+class StopCommand < CommandBase
   try :send_bye
 
   private

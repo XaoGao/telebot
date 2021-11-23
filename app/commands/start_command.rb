@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class StartCommand < Command
+class StartCommand < CommandBase
   try :send_hello
 
   private

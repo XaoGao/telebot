@@ -1,4 +1,5 @@
-class UserFinder
+# frozen_string_literal: true
+class FindUserService
   def find(bot_message)
     case bot_message
     when Telegram::Bot::Types::CallbackQuery

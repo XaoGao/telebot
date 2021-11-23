@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ChooseItemAction < Command
+class ChooseItemAction < CommandBase
   try :pass
 
   private

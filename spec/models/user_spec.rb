@@ -33,29 +33,28 @@ RSpec.describe 'User' do
     end
 
     it 'returns false when user have not action' do
-      user = build(:user, action: nil)
+      user.action = nil
       expect(user.in_action?).to be false
     end
   end
 
-  describe 'validates' do
-    context 'date of birth' do
-      it 'returns error message date of birth more date now' do
-        user = build(:user, date_of_birth: '3021-07-21 00:00:00 +0300')
-        expect(user.valid?).to be false
-        expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная'])
-      end
+  describe 'validate date of birth' do
+    context 'when date of birth to mach' do
+      let(:user) { build(:user, date_of_birth: '3021-07-21 00:00:00 +0300') }
 
-      it 'returns error message date of birth to less' do
-        user = build(:user, date_of_birth: '1900-07-21 00:00:00 +0300')
-        expect(user.valid?).to be false
-        expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная'])
-      end
+      it { expect(user.valid?).to be false }
+      it { user.valid?; expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная']) }
+    end
 
-      it 'is valid' do
-        user = build(:user, date_of_birth: '2020-07-21 00:00:00 +0300')
-        expect(user.valid?).to be true
-      end
+    context 'when date of birth to less' do
+      let(:user) { build(:user, date_of_birth: '1900-07-21 00:00:00 +0300') }
+
+      it { expect(user.valid?).to be false }
+      it { user.valid?; expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная']) }
+    end
+
+    context 'when date of birth is valid' do
+      it { expect(user.valid?).to be true }
     end
   end
 
@@ -71,12 +70,12 @@ RSpec.describe 'User' do
       expect(User.get_or_create_from_message(message)).to eq(user)
     end
 
-    it 'creates a new user' do
-      message = create_message(chat_id: 2, first_name: 'Joy', last_name: 'Den', username: 'Ben')
+    context 'when create a new user' do
+      let(:message) { create_message(chat_id: 2, first_name: 'Joy', last_name: 'Den', username: 'Ben') }
+      let(:new_user) { User.get_or_create_from_message(message) }
 
-      new_user = User.get_or_create_from_message(message)
-      expect(new_user.username).to eq('Ben')
-      expect(new_user.chat_id).to eq(2)
+      it { expect(new_user.username).to eq('Ben') }
+      it { expect(new_user.chat_id).to eq(2) }
     end
   end
 
@@ -90,5 +89,29 @@ RSpec.describe 'User' do
     it 'retruns false when have not vacations' do
       expect(user.vacations?).to be false
     end
+  end
+
+  describe '.year_of_date_of_birth_to_mach?' do
+    let(:user_with_valid_date_of_birth) { build(:user, date_of_birth: '2021-07-21 00:00:00 +0300') }
+    let(:user_with_invalid_date_of_birth) { build(:user, date_of_birth: '1021-07-21 00:00:00 +0300') }
+
+    it { expect(user_with_valid_date_of_birth.send(:year_of_date_of_birth_to_mach?)).to be false }
+    it { expect(user_with_invalid_date_of_birth.send(:year_of_date_of_birth_to_mach?)).to be true }
+  end
+
+  describe '.year_of_date_of_birth_negative?' do
+    let(:user_with_valid_date_of_birth) { build(:user, date_of_birth: '2021-07-21 00:00:00 +0300') }
+    let(:user_with_invalid_date_of_birth) { build(:user, date_of_birth: '3021-07-21 00:00:00 +0300') }
+
+    it { expect(user_with_valid_date_of_birth.send(:year_of_date_of_birth_negative?)).to be false }
+    it { expect(user_with_invalid_date_of_birth.send(:year_of_date_of_birth_negative?)).to be true }
+  end
+
+  describe '.date_of_birth_invalid?' do
+    let(:user_with_valid_date_of_birth) { build(:user, date_of_birth: '2021-07-21 00:00:00 +0300') }
+    let(:user_with_invalid_date_of_birth) { build(:user, date_of_birth: '3021-07-21 00:00:00 +0300') }
+
+    it { expect(user_with_valid_date_of_birth.send(:date_of_birth_invalid?)).to be false }
+    it { expect(user_with_invalid_date_of_birth.send(:date_of_birth_invalid?)).to be true }
   end
 end

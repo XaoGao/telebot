@@ -6,6 +6,7 @@ require 'yaml'
 require 'sequel'
 require 'factory_bot'
 require 'database_cleaner-sequel'
+require 'telegram/bot'
 require_relative './support/helper_methods'
 
 RSpec.configure do |config|
@@ -59,6 +60,7 @@ if DB
   require_relative '../app/models/user'
   require_relative '../app/models/vacation'
   require_relative '../app/models/vacation_range'
+  require_relative '../lib/services/find_user_service'
   require_relative '../lib/command_factory'
   require_relative '../lib/router'
   require_relative '../lib/bot_action'

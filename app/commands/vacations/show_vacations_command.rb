@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ShowVacationsCommand < Command
+class ShowVacationsCommand < CommandBase
   try :show_vacations
 
   private

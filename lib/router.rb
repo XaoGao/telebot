@@ -9,7 +9,7 @@ class Router
   end
 
   def resolve(message)
-    user = UserFinder.new.find message
+    user = FindUserService.new.find message
     CommandFactory.new(bot, message, user).create_command(routes).call
   rescue StandardError => e
     Log.error e.message

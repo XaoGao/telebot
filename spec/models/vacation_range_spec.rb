@@ -5,11 +5,11 @@ require_relative '../spec_helper'
 RSpec.describe 'VacationRange' do
   let(:range) { VacationRange.new('2021-07-21 00:00:00 +0300', '2021-08-21 00:00:00 +0300') }
 
-  context 'success create' do
+  context 'when success create a vacation range' do
     it { expect(range.class.to_s).to eq('VacationRange') }
   end
 
-  context 'should raise error when from > by' do
+  context 'when from > by' do
     it {
       expect do
         VacationRange.new('2022-07-21 00:00:00 +0300', '2021-08-21 00:00:00 +0300')

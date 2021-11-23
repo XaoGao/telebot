@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Command
+class CommandBase
   include BotAction
   attr_reader :bot, :message, :user
 

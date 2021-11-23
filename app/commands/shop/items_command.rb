@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ItemsCommand < Command
+class ItemsCommand < CommandBase
   try :prepear_to_choose_item
 
   private

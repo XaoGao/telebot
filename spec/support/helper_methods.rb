@@ -9,28 +9,14 @@ module HelperMethods
     chat = create_chat(chat_id: options[:chat_id])
     from = create_from(first_name: options[:first_name], last_name: options[:last_name], username: options[:username])
 
-    message = double
-    allow(message).to receive(:chat).and_return(chat)
-    allow(message).to receive(:from).and_return(from)
-
-    allow(message).to receive(:text).and_return(options[:text])
-
-    message
+    instance_double(Telegram::Bot::Types::Message, chat: chat, from: from, text: options[:text])
   end
 
   def create_chat(options)
-    chat = double
-    allow(chat).to receive(:id).and_return(options[:chat_id])
-
-    chat
+    double(id: options[:chat_id])
   end
 
   def create_from(options)
-    from = double
-    allow(from).to receive(:first_name).and_return(options[:first_name])
-    allow(from).to receive(:last_name).and_return(options[:last_name])
-    allow(from).to receive(:username).and_return(options[:username])
-
-    from
+    double(first_name: options[:first_name], last_name: options[:last_name], username: options[:username])
   end
 end

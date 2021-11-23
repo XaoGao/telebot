@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UpdateDateOfBirthCommand < Command
+class UpdateDateOfBirthCommand < CommandBase
   try :prepear_to_update_date_of_birth
 
   private

@@ -23,7 +23,6 @@ if File.exist?(db_config_file) && DB
 end
 
 Dir[File.join(File.dirname(__FILE__), '..', 'lib', '*.rb')].sort.each(&method(:require))
-
+Dir[File.join(File.dirname(__FILE__), '..', 'lib', '**', '*.rb')].sort.each(&method(:require))
 Dir[File.join(File.dirname(__FILE__), '..', 'app', '**', '*.rb')].sort.each(&method(:require))
-
 Dir[File.join(File.dirname(__FILE__), '..', 'config', '**', '*.rb')].sort.each(&method(:require))

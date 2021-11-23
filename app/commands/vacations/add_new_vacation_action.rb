@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddNewVacationAction < Command
+class AddNewVacationAction < CommandBase
   try :add_vacation
   when_error :send_error
   finally :command_done
