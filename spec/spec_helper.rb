@@ -64,7 +64,7 @@ if DB
   require_relative '../lib/command_factory'
   require_relative '../lib/router'
   require_relative '../lib/bot_action'
-  require_relative '../lib/command'
+  require_relative '../lib/command_base'
   require_relative '../lib/nil_command'
   require_relative '../lib/string'
   require_relative './support/dump_command'
