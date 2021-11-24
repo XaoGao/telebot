@@ -5,7 +5,6 @@ class CommandBase
   attr_reader :bot, :message, :user
 
   CALL_BACKS = %i[before_call after_call try when_error finally].freeze
-  private_constant :CALL_BACKS
 
   def initialize(bot, message, user)
     @bot = bot

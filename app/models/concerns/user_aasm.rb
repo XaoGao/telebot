@@ -38,12 +38,12 @@ module UserAasm
           transitions to: :empty
         end
 
-        after_all_transitions :log_status
+        # after_all_transitions :log_status
       end
 
-      def log_status
-        Log.info "#{full_name} chanched status to #{aasm(:actions).to_state}"
-      end
+      # def log_status
+      #   Log.info "#{full_name} chanched status to #{aasm(:actions).to_state}"
+      # end
     end
   end
 end
