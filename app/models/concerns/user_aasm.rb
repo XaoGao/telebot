@@ -8,11 +8,26 @@ module UserAasm
       include AASM
       aasm :actions, column: :action do
         state :empty, initial: true
+        state :choose_city
+        state :choose_gender
+        state :set_date_of_birth
         state :update_date_of_birth
         state :add_new_vacation
         state :remove_exist_vacation
         state :show_weather
         state :choose_item
+
+        event :choose_city do
+          transitions from: :empty, to: :choose_city
+        end
+
+        event :choose_gender do
+          transitions from: :choose_city, to: :choose_gender
+        end
+
+        event :set_date_of_birth do
+          transitions from: :choose_gender, to: :set_date_of_birth
+        end
 
         event :update_date_of_birth do
           transitions from: :empty, to: :update_date_of_birth
