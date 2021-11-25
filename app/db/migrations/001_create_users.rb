@@ -10,6 +10,8 @@ Sequel.migration do
       Integer  :chat_id
       DateTime :date_of_birth
       String   :action
+      Integer  :gender
+      String   :address
 
       DateTime :created_at
       DateTime :updated_at
