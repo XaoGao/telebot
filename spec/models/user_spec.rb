@@ -43,14 +43,22 @@ RSpec.describe 'User' do
       let(:user) { build(:user, date_of_birth: '3021-07-21 00:00:00 +0300') }
 
       it { expect(user.valid?).to be false }
-      it { user.valid?; expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная']) }
+
+      it {
+        user.valid?
+        expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная'])
+      }
     end
 
     context 'when date of birth to less' do
       let(:user) { build(:user, date_of_birth: '1900-07-21 00:00:00 +0300') }
 
       it { expect(user.valid?).to be false }
-      it { user.valid?; expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная']) }
+
+      it {
+        user.valid?
+        expect(user.errors[:date_of_birth]).to eq(['Дата рождения не валидная'])
+      }
     end
 
     context 'when date of birth is valid' do

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CommandFactory
   attr_reader :bot, :message, :user
 

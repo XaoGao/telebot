@@ -10,7 +10,7 @@ gem 'database_cleaner-sequel', '~> 2.0'
 gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 gem 'factory_bot', '~> 6.2'
 gem 'faker', '~> 2.19'
-gem 'httparty', '~> 0.20.0'
+gem 'faraday'
 gem 'rack', '~> 2.2', '>= 2.2.3'
 gem 'rspec', '~> 3.10'
 gem 'rubocop', '~> 1.23', require: false

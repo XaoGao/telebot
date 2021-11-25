@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'httparty'
+require 'faraday'
 
-class Weather
+class WeatherService
   def initialize(client = nil)
     @client = client || default_client
     @api_key = ENV['API_KEY_WEATHER']
@@ -12,7 +12,7 @@ class Weather
   def by_city(city_name)
     response = @client.get("#{@base_url}?key=#{@api_key}&q=#{city_name}")
 
-    raise if response.code != 200
+    raise if response.status != 200
 
     WeatherResponse.new(response.body)
   end
@@ -20,6 +20,6 @@ class Weather
   private
 
   def default_client
-    HTTParty
+    Faraday
   end
 end

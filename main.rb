@@ -3,6 +3,7 @@
 require 'dotenv/load'
 require 'telegram/bot'
 require './lib/boot'
+
 module TelegramBot
   Telegram::Bot::Client.run(TOKEN, logger: Log) do |bot|
     router = Router.new(bot, ROUTES)

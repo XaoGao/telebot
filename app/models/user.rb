@@ -14,9 +14,7 @@ class User < Sequel::Model(DB)
   def validate
     super
     validates_presence [:chat_id]
-    if date_of_birth_invalid?
-      errors.add(:date_of_birth, 'Дата рождения не валидная')
-    end
+    errors.add(:date_of_birth, 'Дата рождения не валидная') if date_of_birth_invalid?
   end
 
   def self.actions

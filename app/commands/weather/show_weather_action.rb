@@ -4,7 +4,7 @@ class ShowWeatherAction < CommandBase
   def initialize(bot, message, user)
     super bot, message, user
 
-    @weathe_client = Weather.new
+    @weathe_client = WeatherService.new
   end
 
   try :send_weather
