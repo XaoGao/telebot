@@ -67,7 +67,7 @@ RSpec.describe 'User' do
   end
 
   it '#actions' do
-    expect(User.actions).to eq(%i[update_date_of_birth add_new_vacation remove_exist_vacation show_weather choose_item])
+    expect(User.actions).to eq(%i[choose_city choose_gender set_date_of_birth update_date_of_birth add_new_vacation remove_exist_vacation show_weather choose_item])
   end
 
   describe '#get_or_create_from_message' do

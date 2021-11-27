@@ -8,6 +8,7 @@ require 'factory_bot'
 require 'database_cleaner-sequel'
 require 'telegram/bot'
 require_relative './support/helper_methods'
+require_relative './support/configure/data_base_cleaner'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -27,18 +28,6 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.find_definitions
-  end
-
-  config.before do
-    DatabaseCleaner[:sequel].strategy = :transaction
-  end
-
-  config.before do
-    DatabaseCleaner[:sequel].start
-  end
-
-  config.after do
-    DatabaseCleaner[:sequel].clean
   end
 
   config.include HelperMethods
@@ -63,7 +52,7 @@ if DB
   require_relative '../lib/bot_action'
   require_relative '../lib/commands/command_base'
   require_relative '../lib/commands/nil_command'
-  require_relative '../lib/utils/string'
+  # require_relative '../lib/utils/string'
   require_relative './support/dump_command'
   require_relative './support/dump_action'
 end

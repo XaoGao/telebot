@@ -19,7 +19,7 @@ class User < Sequel::Model(DB)
 
   def self.actions
     default_state = User.aasm(:actions).initial_state
-    aasm(:actions).states.map(&:name).filter { |a| a != default_state }
+    aasm(:actions).states.map(&:name.to_sym).filter { |a| a != default_state }
   end
 
   def self.get_or_create_from_message(message)

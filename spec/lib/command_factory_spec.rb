@@ -3,16 +3,16 @@
 require_relative '../spec_helper'
 require 'yaml'
 
-RSpec.describe 'CommandFactory' do
+RSpec.describe Telebot::CommandFactory do
   let(:message_is_command) { create_message(text: '/dump') }
   let(:message_simple_text) { create_message(text: 'not_command') }
   let(:routes) { YAML.safe_load(File.read(File.join(File.dirname(__FILE__), '..', 'support', 'test_routes.yml'))) }
   let(:user) { create(:user, action: 'dump') }
   let(:bot) { 'Fake_bot' }
-  let(:subject) { CommandFactory.new(bot, message_is_command, user) }
+  let(:subject) { described_class.new(bot, message_is_command, user) }
 
   describe '.initialize' do
-    let(:subject) { CommandFactory.new('Fake_bot', 'Fake_message', 'Fake_user') }
+    let(:subject) { described_class.new('Fake_bot', 'Fake_message', 'Fake_user') }
 
     it { expect(subject.instance_variable_get(:@bot)).to eq('Fake_bot') }
     it { expect(subject.instance_variable_get(:@message)).to eq('Fake_message') }
@@ -38,14 +38,14 @@ RSpec.describe 'CommandFactory' do
 
     it 'when user in action and message is not command name' do
       allow(user).to receive(:in_action?).and_return(true)
-      subject = CommandFactory.new(bot, message_simple_text, user)
+      subject = described_class.new(bot, message_simple_text, user)
       expect(subject.create_command(routes)).to be_an_instance_of(DumpAction)
     end
 
     it 'when user is not in action and message is not command name' do
       allow(user).to receive(:in_action?).and_return(false)
-      subject = CommandFactory.new(bot, message_simple_text, user)
-      expect(subject.create_command(routes)).to be_an_instance_of(NilCommand)
+      subject = described_class.new(bot, message_simple_text, user)
+      expect(subject.create_command(routes)).to be_an_instance_of(Telebot::NilCommand)
     end
   end
 end

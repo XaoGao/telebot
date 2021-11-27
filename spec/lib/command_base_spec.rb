@@ -2,7 +2,7 @@
 
 require_relative '../spec_helper'
 
-RSpec.describe CommandBase do
+RSpec.describe Telebot::CommandBase do
   let(:bot) { 'fake_bot' }
   let(:message) { create_message(chat_id: 1, text: '/dump') }
   let(:user) { create(:user, action: 'update_date_of_birth') }
