@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
+require_relative '../helpers/utils'
+
 class CommandFactory
+  using Helpers::Utils
   attr_reader :bot, :message, :user
 
   def initialize(bot, message, user)
