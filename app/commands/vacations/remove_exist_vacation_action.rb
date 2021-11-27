@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RemoveExistVacationAction < CommandBase
+class RemoveExistVacationAction < Telebot::CommandBase
   try :remove_vacation
   when_error :send_error
   finally :command_done

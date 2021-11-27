@@ -1,4 +1,5 @@
 # frozen_string_literal: true
-
-class NilCommand < CommandBase
+module Telebot
+  class NilCommand < CommandBase
+  end
 end

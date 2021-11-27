@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require 'dotenv/load'
-require 'telegram/bot'
-require './lib/boot'
+require './lib/telebot'
 
 module TelegramBot
-  Telegram::Bot::Client.run(TOKEN, logger: Log) do |bot|
-    router = Router.new(bot, ROUTES)
+  Telegram::Bot::Client.run(TOKEN, logger: Telebot::Log) do |bot|
+    router = Telebot::Router.new(bot, ROUTES)
     bot.logger.info('Bot has been started')
 
     bot.listen do |message|

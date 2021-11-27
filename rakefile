@@ -93,7 +93,7 @@ namespace :g do
 
   def write_command_template_to_file(full_name, file_name)
     str = <<~COMMAND
-      class #{file_name.to_camel_case} < CommandBase
+      class #{file_name.to_camel_case} < Telebot::CommandBase
         # before_call :some_method
         # try         :some_method
         # when_error  :some_method

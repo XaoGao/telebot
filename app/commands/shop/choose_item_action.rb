@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ChooseItemAction < CommandBase
+class ChooseItemAction < Telebot::CommandBase
   try :pass
 
   private

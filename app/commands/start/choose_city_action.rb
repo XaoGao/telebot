@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ChooseCityAction < CommandBase
+class ChooseCityAction < Telebot::CommandBase
   try :set_city_prepeare_choose_gender
 
   private

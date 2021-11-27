@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class StartCommand < CommandBase
+class StartCommand < Telebot::CommandBase
   try :send_hello_prepere_choose_city
 
   private

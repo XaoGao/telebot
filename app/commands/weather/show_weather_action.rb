@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ShowWeatherAction < CommandBase
+class ShowWeatherAction < Telebot::CommandBase
   def initialize(bot, message, user)
     super bot, message, user
 

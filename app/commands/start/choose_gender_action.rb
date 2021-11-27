@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ChooseGenderAction < CommandBase
+class ChooseGenderAction < Telebot::CommandBase
   try :set_gender_prepeare_set_update_date_of_birth
 
   private

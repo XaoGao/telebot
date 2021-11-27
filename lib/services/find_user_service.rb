@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-class FindUserService
-  def find(bot_message)
-    case bot_message
-    when Telegram::Bot::Types::CallbackQuery
-      User.find(chat_id: bot_message.from.id)
-    when Telegram::Bot::Types::Message
-      User.get_or_create_from_message bot_message
+module Telebot
+  class FindUserService
+    def find(bot_message)
+      case bot_message
+      when Telegram::Bot::Types::CallbackQuery
+        User.find(chat_id: bot_message.from.id)
+      when Telegram::Bot::Types::Message
+        User.get_or_create_from_message bot_message
+      end
     end
   end
 end
