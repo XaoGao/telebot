@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RemoveVacationCommand < Telebot::CommandBase
+class RemoveVacationCommand < ApplicationCommand
   try :prepear_to_remove_vacation
   when_error :cancel_action
 

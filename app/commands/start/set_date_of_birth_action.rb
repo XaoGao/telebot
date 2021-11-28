@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class SetDateOfBirthAction < Telebot::CommandBase
+class SetDateOfBirthAction < ApplicationCommand
   try :set_update_date_of_birth
-  when_error :send_error
+  when_error :send_message_date_is_invalid
   finally :command_done
 
   private
@@ -18,7 +18,7 @@ class SetDateOfBirthAction < Telebot::CommandBase
     end
   end
 
-  def send_error
+  def send_message_date_is_invalid
     send_message text: 'Некорректный формат даты!'
   end
 

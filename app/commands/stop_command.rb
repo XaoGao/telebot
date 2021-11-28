@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class StopCommand < Telebot::CommandBase
+class StopCommand < ApplicationCommand
   try :send_bye
 
   private

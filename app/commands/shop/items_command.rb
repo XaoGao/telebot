@@ -2,7 +2,7 @@
 
 require 'faraday'
 
-class ItemsCommand < Telebot::CommandBase
+class ItemsCommand < ApplicationCommand
   try :prepear_to_choose_item
 
   private

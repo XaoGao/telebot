@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ShowVacationsCommand < Telebot::CommandBase
+class ShowVacationsCommand < ApplicationCommand
   try :show_vacations
 
   private

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddVacationCommand < Telebot::CommandBase
+class AddVacationCommand < ApplicationCommand
   try :prepear_to_add_vacation
 
   private

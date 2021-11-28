@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
-require_relative './concerns/date_formatter'
-require_relative './concerns/user_aasm'
-
 class User < Sequel::Model(DB)
   include DateFormatter
   include UserAasm
 
   one_to_many :vacations
 
-  date :date_of_birth
+  pretty_date_format_for :date_of_birth
 
   def validate
     super

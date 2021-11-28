@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UpdateDateOfBirthAction < Telebot::CommandBase
+class UpdateDateOfBirthAction < ApplicationCommand
   try :add_date_of_birth
   when_error :send_error
   finally :command_done

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WeatherCommand < Telebot::CommandBase
+class WeatherCommand < ApplicationCommand
   try :prepear_to_get_city_name
 
   private
