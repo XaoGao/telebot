@@ -8,7 +8,7 @@ class StartCommand < ApplicationCommand
   def send_hello_prepere_choose_city
     user.choose_city
     user.save
-    cities = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: [%w(Москва Санкт-Петербург), %w(Самара)], one_time_keyboard: true)
+    cities = keyboard [%w(Москва Санкт-Петербург), %w(Самара)]
     send_message(text: hello_message, reply_markup: cities)
   end
 

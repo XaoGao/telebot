@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative './lib/string'
+require_relative './lib/helpers/utils'
 
 namespace :g do
   desc 'generate a command'
@@ -42,12 +42,8 @@ namespace :g do
     existed_migrations = Dir["#{path_to_migrations}/*.rb"].sort
     last_migration = existed_migrations.last.split('/').last
 
-    current_number_of_migration = if last_migration.nil?
-                                    '001'
-                                  else
-                                    format('%03d',
-                                           (last_migration.split('_').first.to_i + 1))
-                                  end
+    current_number_of_migration = last_migration.nil? ? '001' : format('%03d', (last_migration.split('_').first.to_i + 1))
+
     migration_name = File.join(path_to_migrations, [current_number_of_migration, "#{migration}.rb"].join('_'))
     touch migration_name
 
@@ -63,12 +59,8 @@ namespace :g do
     existed_migrations = Dir["#{path_to_migrations}/*.rb"].sort
     last_migration = existed_migrations.last.split('/').last
 
-    current_number_of_migration = if last_migration.nil?
-                                    '001'
-                                  else
-                                    format('%03d',
-                                           (last_migration.split('_').first.to_i + 1))
-                                  end
+    current_number_of_migration = last_migration.nil? ? '001' : format('%03d', (last_migration.split('_').first.to_i + 1))
+
     migration_name = File.join(path_to_migrations, [current_number_of_migration, "#{migration}.rb"].join('_'))
     touch migration_name
 
@@ -93,7 +85,7 @@ namespace :g do
 
   def write_command_template_to_file(full_name, file_name)
     str = <<~COMMAND
-      class #{file_name.to_camel_case} < Telebot::CommandBase
+      class #{file_name.to_camel_case} < ApplicationCommand
         # before_call :some_method
         # try         :some_method
         # when_error  :some_method

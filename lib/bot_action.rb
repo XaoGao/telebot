@@ -9,5 +9,9 @@ module Telebot
     def send_photo(photo:, chat_id: message.chat.id)
       bot.api.send_photo(chat_id: chat_id, photo: photo)
     end
+
+    def keyboard(buttons, one_time_keyboard = true)
+      Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: buttons, one_time_keyboard: one_time_keyboard)
+    end
   end
 end

@@ -9,7 +9,7 @@ class ChooseCityAction < ApplicationCommand
     user.choose_gender
     user.address = message.text
     user.save
-    genders = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: [%w(М Ж)], one_time_keyboard: true)
+    genders = keyboard [%w(М Ж)]
     send_message(text: choose_gender_message, reply_markup: genders)
   end
 
