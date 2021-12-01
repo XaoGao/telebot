@@ -8,17 +8,10 @@ class StartCommand < ApplicationCommand
   def send_hello_prepere_choose_city
     user.choose_city
     user.save
-    cities = keyboard [%w(Москва Санкт-Петербург), %w(Самара)]
-    send_message(text: hello_message, reply_markup: cities)
+    send_message(text: I18n.t('command.start.hello', name: user.first_name), reply_markup: cities)
   end
 
-  def hello_message
-    message = <<~MESSAGE
-Привет, #{user.first_name} 👋
-Мы рады, что ваш выбор пал на сеть кофеен Coffee и на бота в частности! Надеюсь, вам тут придется по вкусу!
-Прежде чем мы начнем, нам нужно узнать пару вещей о вас. Так как мы представлены в нескольких городах России, и расширяемся по сей дей, сперва выберете город, в котором вы хотите покупать:
-    MESSAGE
-
-    message
+  def cities
+    keyboard [[I18n.t('command.start.cities.moscow'), I18n.t('command.start.cities.saint-petersburg')], [I18n.t('command.start.cities.samara')]]
   end
 end

@@ -1,4 +1,17 @@
 en:
   command:
-    test:
-      sound: 'sound'
+    start:
+      hello: "Hi, %{name} 👋 We are glad that your choice fell on the Coffee chain of coffee shops and on the bot in particular! I hope you will like it here! Before we get started, we need to know a couple of things about you. Since we are represented in several cities of Russia, and we are expanding to this day, first choose the city in which you want to buy:"
+      cities:
+        moscow: 'Moscow'
+        saint-petersburg: 'Saint-Petersburg'
+        samara: 'Samara'
+      gender: "👫 Lady or gentleman? Choose one of the two to get a 50% discount on the order on February 23 or March 8!"
+      genders:
+        m: 'M'
+        w: 'W'
+      date_of_birth: "Enter your date of birth in the format dd.mm.yyyy, and get a drink for one ruble on the day of your holiday!"
+      skip: 'Skip'
+      skip_set_date_of_birth: 'You can specify the date of birth later'
+      error_set_date_of_birth: 'Incorrect date format! Re-enter the date or skip'
+      success_set_date_of_birth: "%{date_of_birth} successfully saved"
