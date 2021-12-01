@@ -11,6 +11,7 @@ gem 'dotenv-rails', '~> 2.7', '>= 2.7.6'
 gem 'factory_bot', '~> 6.2'
 gem 'faker', '~> 2.19'
 gem 'faraday'
+gem 'i18n', '~> 1.8'
 gem 'rack', '~> 2.2', '>= 2.2.3'
 gem 'rspec', '~> 3.10'
 gem 'rubocop', '~> 1.23', require: false
