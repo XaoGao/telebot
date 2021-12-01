@@ -1,39 +1,40 @@
 # frozen_string_literal: true
 
 class SetDateOfBirthAction < ApplicationCommand
-  try :set_update_date_of_birth
-  when_error :send_message_date_is_invalid
-  finally :close_command_or_skip_step
+  try        :try_set_date_of_birth
+  when_error :send_error_message
 
   private
 
-  def set_update_date_of_birth
-    new_date = parse_date_of_birth message
-
-    user.date_of_birth = new_date
-    if user.valid?
-      send_message text: success_message(user.date_of_birth_format)
+  def try_set_date_of_birth
+    if message.text == 'Пропустить'
+      close_command_with_message 'Вы можете указать дату рождения позже'
     else
-      send_message_date_is_invalid
+      user.date_of_birth = parse_date_of_birth message
+      check_user_and_notificate user
     end
   end
 
-  def send_message_date_is_invalid
+  def send_error_message
     skip = keyboard [%w(Пропустить)]
     send_message(text: 'Некорректный формат даты! Повторите ввод даты или пропустите', reply_markup: skip)
-  end
-
-  def success_message(date)
-    "#{date} успешно сохранена"
   end
 
   def parse_date_of_birth(message)
     DateTime.parse message.text
   end
 
-  def close_command_or_skip_step
-    if message.text == 'Пропустить' || user.valid?
-      command_done
+  def close_command_with_message(message)
+    send_message text: message
+    user.close_command
+    user.save
+  end
+
+  def check_user_and_notificate(user)
+    if user.valid?
+      close_command_with_message "#{user.date_of_birth_format} успешно сохранена"
+    else
+      send_error_message
     end
   end
 end
