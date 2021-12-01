@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'faraday'
+require_relative '../adapters/http_clients/faraday_client_adapter'
 
 class WeatherService
   def initialize(client = nil)
@@ -10,7 +10,7 @@ class WeatherService
   end
 
   def by_city(city_name)
-    response = @client.get("#{@base_url}?key=#{@api_key}&q=#{city_name}")
+    response = client.get("#{base_url}?key=#{api_key}&q=#{city_name}")
 
     raise if response.status != 200
 
@@ -19,7 +19,9 @@ class WeatherService
 
   private
 
+  attr_reader :client, :api_key, :base_url
+
   def default_client
-    Faraday
+    FaradayClientAdapter.new
   end
 end
