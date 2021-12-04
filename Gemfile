@@ -18,7 +18,7 @@ gem 'rubocop', '~> 1.23', require: false
 gem 'rubocop-performance', '~> 1.12', require: false
 gem 'rubocop-rspec', '~> 2.6', require: false
 gem 'sequel', '~> 5.46'
-gem 'sidekiq', '~> 6.3', '>= 6.3.1'
+gem 'rufus-scheduler'
 gem 'simplecov', '~> 0.21.2', require: false, group: :test
 gem 'sqlite3', '~> 1.4', '>= 1.4.2'
 gem 'telegram-bot-ruby', '~> 0.16.0'

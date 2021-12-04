@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'sidekiq'
+# require 'sidekiq'
 
 class MyJobWorker
-  include Sidekiq::Worker
+  # include Sidekiq::Worker
 
   def perform(_args)
     p 'test'
