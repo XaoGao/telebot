@@ -22,3 +22,4 @@ gem 'sequel', '~> 5.46'
 gem 'simplecov', '~> 0.21.2', require: false, group: :test
 gem 'sqlite3', '~> 1.4', '>= 1.4.2'
 gem 'telegram-bot-ruby', '~> 0.16.0'
+gem 'thor', '~> 0.20.3'
