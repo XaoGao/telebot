@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require_relative '../generators/cli'
+require_relative '../lib/generators/cli'
 
 Telebot::Generators::Cli.start(ARGV)
