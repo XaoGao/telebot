@@ -11,7 +11,7 @@ module Telebot
       def generate(thing, name)
         case thing.downcase
         when 'model'
-          say "Create #{thing}", :green
+          create_model(name)
         when 'command'
           create_command(name)
         when 'action'
@@ -61,7 +61,18 @@ module Telebot
         end
       end
 
-      def create_model; end
+      def create_model(file_name)
+        create_migration("create_#{file_name}")
+        path = File.join('app', 'models')
+        full_name = File.join(path, "#{file_name}.rb")
+        name = file_name.split('/').last
+        create_file full_name do
+          <<~COMMAND
+            class #{name.to_camel_case} < Sequel::Model(DB)
+            end
+          COMMAND
+        end
+      end
 
       def create_migration(file_name)
         path = File.join('app', 'db', 'migrations')
