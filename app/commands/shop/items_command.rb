@@ -8,7 +8,7 @@ class ItemsCommand < ApplicationCommand
   private
 
   def prepear_to_choose_item
-    user.choose_item
+    user.status_to_choose_item
     user.save
 
     Item.all.each do |item|

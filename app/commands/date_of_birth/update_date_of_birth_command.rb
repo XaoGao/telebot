@@ -6,7 +6,7 @@ class UpdateDateOfBirthCommand < ApplicationCommand
   private
 
   def prepear_to_update_date_of_birth
-    user.update_date_of_birth
+    user.status_to_update_date_of_birth
     if user.valid?
       user.save
       send_message text: I18n.t('command.start.date_of_birth')

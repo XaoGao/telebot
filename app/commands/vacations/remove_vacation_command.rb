@@ -7,7 +7,7 @@ class RemoveVacationCommand < ApplicationCommand
   private
 
   def prepear_to_remove_vacation
-    user.remove_exist_vacation
+    user.status_to_remove_exist_vacation
     user.save
     send_message text: 'Укажите идентификатор отпуска, который будет удален'
   end

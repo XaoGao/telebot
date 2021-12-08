@@ -6,7 +6,7 @@ class StartCommand < ApplicationCommand
   private
 
   def send_hello_prepere_choose_city
-    user.choose_city
+    user.status_to_choose_city
     user.save
     send_message(text: I18n.t('command.start.hello', name: user.first_name), reply_markup: cities)
   end

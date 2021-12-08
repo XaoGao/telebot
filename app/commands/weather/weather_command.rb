@@ -6,7 +6,7 @@ class WeatherCommand < ApplicationCommand
   private
 
   def prepear_to_get_city_name
-    user.show_weather
+    user.status_to_show_weather
     user.save
     send_message text: I18n.t('command.weather.choose_city')
   end

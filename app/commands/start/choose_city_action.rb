@@ -6,7 +6,7 @@ class ChooseCityAction < ApplicationCommand
   private
 
   def set_city_prepeare_choose_gender
-    user.choose_gender
+    user.status_to_choose_gender
     user.address = message.text
     user.save
     genders = keyboard [[I18n.t('command.start.genders.m'), I18n.t('command.start.genders.w')]]

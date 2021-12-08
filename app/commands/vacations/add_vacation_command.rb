@@ -6,7 +6,7 @@ class AddVacationCommand < ApplicationCommand
   private
 
   def prepear_to_add_vacation
-    user.add_new_vacation
+    user.status_to_add_new_vacation
     user.save
     send_message text: text
   end
