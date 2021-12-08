@@ -19,6 +19,6 @@ class ShowWeatherAction < ApplicationCommand
   end
 
   def send_error
-    send_message text: 'Ошибка во время получения погоды'
+    send_message text: I18n.t('command.weather.error')
   end
 end

@@ -15,3 +15,6 @@ en:
       skip_set_date_of_birth: 'You can specify the date of birth later'
       error_set_date_of_birth: 'Incorrect date format! Re-enter the date or skip'
       success_set_date_of_birth: "%{date_of_birth} successfully saved"
+    weather:
+      choose_city: 'Specify the city'
+      error: 'Error while receiving weather'

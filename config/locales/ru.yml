@@ -15,3 +15,6 @@ ru:
       skip_set_date_of_birth: 'Вы можете указать дату рождения позже'
       error_set_date_of_birth: 'Некорректный формат даты! Повторите ввод даты или пропустите'
       success_set_date_of_birth: "%{date_of_birth} успешно сохранена"
+    weather:
+      choose_city: 'Укажите город'
+      error: 'Ошибка во время получения погоды'
