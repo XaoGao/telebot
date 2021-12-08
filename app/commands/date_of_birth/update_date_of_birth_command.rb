@@ -9,15 +9,11 @@ class UpdateDateOfBirthCommand < ApplicationCommand
     user.update_date_of_birth
     if user.valid?
       user.save
-      send_message text: text
+      send_message text: I18n.t('command.start.date_of_birth')
     else
       user.erros.each do |_key, value|
         send_message text: value
       end
     end
-  end
-
-  def text
-    'Укажите дату в формате dd.MM.yyyy'
   end
 end

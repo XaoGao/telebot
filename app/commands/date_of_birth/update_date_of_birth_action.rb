@@ -19,11 +19,11 @@ class UpdateDateOfBirthAction < ApplicationCommand
   end
 
   def send_error
-    send_message text: 'Некорректный формат даты!'
+    send_message text: I18n.t('command.start.error_set_date_of_birth')
   end
 
   def success_message(date)
-    "#{date} успешно сохранена"
+    I18n.t('command.start.success_set_date_of_birth', date_of_birth: date)
   end
 
   def parse_date_of_birth(message)
