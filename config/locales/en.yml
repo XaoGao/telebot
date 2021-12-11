@@ -18,3 +18,17 @@ en:
     weather:
       choose_city: 'Specify the city'
       error: 'Error while receiving weather'
+    vacations:
+      add_new_vacation:
+        ask_range: 'Enter the date in the format dd.MM.yyyy - dd.MM.yyyy'
+        error: 'Incorrect date format!'
+        success: "Vacation %{range} successfully saved"
+      remove_vacation:
+        ask_vacation: 'Specify the ID of the vacation to be deleted'
+        cancel_action: 'An error occurred while executing the command, try again later'
+        not_found: 'There is no vacation with the specified ID'
+        success: 'Vacation successfully deleted'
+        error: 'Error when deleting vacation'
+      show:
+        have_not: 'There are no vacations'
+        error: 'Unexpected error during execution'

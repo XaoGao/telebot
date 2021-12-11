@@ -9,11 +9,11 @@ class RemoveVacationCommand < ApplicationCommand
   def prepear_to_remove_vacation
     user.status_to_remove_exist_vacation
     user.save
-    send_message text: 'Укажите идентификатор отпуска, который будет удален'
+    send_message text: I18n.t('command.vacations.remove_vacation.ask_vacation')
   end
 
   def cancel_action
-    send_message text: 'Во время выполнения команды возникла ошибка, попробуйте позже'
+    send_message text: I18n.t('command.vacations.remove_vacation.cancel_action')
     user.close_command
   end
 end

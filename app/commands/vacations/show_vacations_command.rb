@@ -2,6 +2,7 @@
 
 class ShowVacationsCommand < ApplicationCommand
   try :show_vacations
+  when_error :send_error
 
   private
 
@@ -11,7 +12,11 @@ class ShowVacationsCommand < ApplicationCommand
         send_message text: "#{index + 1}) #{vacation.interval}; id = #{vacation.id}"
       end
     else
-      send_message text: 'Отпусков нет'
+      send_message text: I18n.t('command.vacations.show.have_not')
     end
+  end
+
+  def send_error
+    send_message text: I18n.t('command.vacations.show.error')
   end
 end

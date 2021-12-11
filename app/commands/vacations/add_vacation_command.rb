@@ -8,10 +8,6 @@ class AddVacationCommand < ApplicationCommand
   def prepear_to_add_vacation
     user.status_to_add_new_vacation
     user.save
-    send_message text: text
-  end
-
-  def text
-    'Укажите дату в формате dd.MM.yyyy - dd.MM.yyyy'
+    send_message text: I18n.t('command.vacations.add_new_vacation.ask_range')
   end
 end

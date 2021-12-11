@@ -13,14 +13,10 @@ class AddNewVacationAction < ApplicationCommand
 
     user.add_vacation(from: range.from, by: range.by)
     user.save
-    send_message text: success_message(message)
+    send_message text: I18n.t('command.vacations.add_new_vacation.success', range: message.text)
   end
 
   def send_error
-    send_message text: 'Некорректный форматы даты!'
-  end
-
-  def success_message(message)
-    "Отпуск #{message.text} успешно сохранен"
+    send_message text: I18n.t('command.vacations.add_new_vacation.error')
   end
 end

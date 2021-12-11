@@ -10,15 +10,15 @@ class RemoveExistVacationAction < ApplicationCommand
   def remove_vacation
     vacation = Vacation.find(id: message.text)
     if vacation.nil?
-      send_message text: 'Отпуска с указаным идентификатором нет'
+      send_message text: I18n.t('command.vacations.remove_vacation.not_found')
       return
     end
     user.remove_vacation(vacation)
     user.save
-    send_message text: 'Отпуск успешно удален'
+    send_message text: I18n.t('command.vacations.remove_vacation.success')
   end
 
   def send_error
-    send_message text: 'Ошибка при удалении отпуска'
+    send_message text: I18n.t('command.vacations.remove_vacation.error')
   end
 end
