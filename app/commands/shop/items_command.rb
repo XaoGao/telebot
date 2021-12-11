@@ -1,21 +1,18 @@
 # frozen_string_literal: true
 
-require 'faraday'
-
 class ItemsCommand < ApplicationCommand
   try :prepear_to_choose_item
+  when_error :command_done
 
   private
 
   def prepear_to_choose_item
-    user.status_to_choose_item
-    user.save
-
     Item.all.each do |item|
-      kb = [Telegram::Bot::Types::InlineKeyboardButton.new(text: item.price_info, callback_data: item.id)]
-      markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb)
-      send_photo(photo: Faraday::UploadIO.new(item.path_to_image, 'image/jpeg'))
+      markup = inline_keyboard([{ text: item.price_info, value: item.id }])
+      send_photo(photo: item.upload_attachment)
       send_message(text: item.info, reply_markup: markup)
     end
+    user.status_to_choose_item
+    user.save
   end
 end

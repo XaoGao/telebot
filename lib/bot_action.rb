@@ -13,5 +13,10 @@ module Telebot
     def keyboard(buttons, one_time_keyboard = true)
       Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: buttons, one_time_keyboard: one_time_keyboard)
     end
+
+    def inline_keyboard(buttons)
+      kb = buttons.map { |button| Telegram::Bot::Types::InlineKeyboardButton.new(text: button[:text], callback_data: button[:value]) }
+      Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: kb)
+    end
   end
 end

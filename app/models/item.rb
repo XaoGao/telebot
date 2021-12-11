@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Item < Sequel::Model(DB)
+  include FileUploadable
+
   def validate
     super
     validates_presence %i[name desc price image]
