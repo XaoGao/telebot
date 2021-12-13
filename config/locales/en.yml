@@ -1,4 +1,7 @@
 en:
+  model:
+    item:
+      price_info: "Bye %{price} rub"
   command:
     start:
       hello: "Hi, %{name} 👋 We are glad that your choice fell on the Coffee chain of coffee shops and on the bot in particular! I hope you will like it here! Before we get started, we need to know a couple of things about you. Since we are represented in several cities of Russia, and we are expanding to this day, first choose the city in which you want to buy:"

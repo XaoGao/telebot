@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-require_relative './listener'
+require_relative './lib/telebot'
 
-TelegramBot::Listener.start
+Telebot.start

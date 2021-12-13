@@ -18,6 +18,6 @@ class Item < Sequel::Model(DB)
   end
 
   def price_info
-    "Купить #{price} рублей"
+    I18n.t('model.item.price_info', price: price)
   end
 end
