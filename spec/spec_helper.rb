@@ -43,6 +43,9 @@ end
 if DB
   Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), '..', 'app', 'db', 'migrations'))
 
+  require_relative '../app/models/concerns/date_formatter'
+  require_relative '../app/models/concerns/file_uploadable'
+  require_relative '../app/models/concerns/user_aasm'
   require_relative '../app/models/user'
   require_relative '../app/models/vacation'
   require_relative '../app/models/vacation_range'
@@ -52,7 +55,7 @@ if DB
   require_relative '../lib/bot_action'
   require_relative '../lib/commands/command_base'
   require_relative '../lib/commands/nil_command'
-  # require_relative '../lib/utils/string'
+  require_relative '../lib/helpers/utils'
   require_relative './support/dump_command'
   require_relative './support/dump_action'
 end
