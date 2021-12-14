@@ -10,7 +10,7 @@ class Item < Sequel::Model(DB)
   end
 
   def path_to_image
-    File.join(ROOT_PATH, 'assets', 'images', image)
+    File.join(Application.root, 'app', 'assets', 'images', image)
   end
 
   def info
