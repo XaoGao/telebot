@@ -16,7 +16,7 @@ class SetDateOfBirthAction < ApplicationCommand
   end
 
   def send_error_message
-    skip = keyboard [(I18n.t('command.start.skip'))]
+    skip = keyboard [I18n.t('command.start.skip')]
     send_message(text: I18n.t('command.start.error_set_date_of_birth'), reply_markup: skip)
   end
 
@@ -32,7 +32,8 @@ class SetDateOfBirthAction < ApplicationCommand
 
   def check_user_and_notificate(user)
     if user.valid?
-      close_command_with_message I18n.t('command.start.success_set_date_of_birth', date_of_birth: user.date_of_birth_format)
+      close_command_with_message I18n.t('command.start.success_set_date_of_birth',
+                                        date_of_birth: user.date_of_birth_format)
     else
       send_error_message
     end

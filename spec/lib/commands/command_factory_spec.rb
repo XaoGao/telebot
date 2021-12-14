@@ -8,7 +8,9 @@ RSpec.describe Telebot::CommandFactory do
 
   let(:message_is_command) { create_message(text: '/dump') }
   let(:message_simple_text) { create_message(text: 'not_command') }
-  let(:routes) { YAML.safe_load(File.read(File.join(File.dirname(__FILE__), '..', '..', 'support', 'test_routes.yml'))) }
+  let(:routes) do
+    YAML.safe_load(File.read(File.join(File.dirname(__FILE__), '..', '..', 'support', 'test_routes.yml')))
+  end
   let(:user) { create(:user, action: 'dump') }
   let(:bot) { 'Fake_bot' }
 

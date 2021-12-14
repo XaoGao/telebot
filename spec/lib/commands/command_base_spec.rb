@@ -26,6 +26,11 @@ RSpec.describe Telebot::CommandBase do
     it 'check methods exist' do
       described_class::CALL_BACKS.each do |method_name|
         expect(described_class).to respond_to(method_name.to_sym).with(1).arguments
+      end
+    end
+
+    it 'check fileds exist' do
+      described_class::CALL_BACKS.each do |method_name|
         expect(described_class).to respond_to("#{method_name}_step".to_sym).with(0).arguments
       end
     end

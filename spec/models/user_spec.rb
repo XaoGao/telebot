@@ -2,7 +2,7 @@
 
 require_relative '../spec_helper'
 
-RSpec.describe 'User' do
+RSpec.describe User do
   let(:user) do
     build(:user, username: 'simple_user', first_name: 'Joy', last_name: 'Den', action: 'update_date_of_birth',
                  date_of_birth: '2021-07-21 00:00:00 +0300')
@@ -67,7 +67,8 @@ RSpec.describe 'User' do
   end
 
   it '#actions' do
-    expect(User.actions).to eq(%i[choose_city choose_gender set_date_of_birth update_date_of_birth add_new_vacation remove_exist_vacation show_weather choose_item])
+    expect(described_class.actions).to eq(%i[choose_city choose_gender set_date_of_birth update_date_of_birth
+                                             add_new_vacation remove_exist_vacation show_weather choose_item])
   end
 
   describe '#get_or_create_from_message' do
@@ -75,12 +76,12 @@ RSpec.describe 'User' do
       user = create(:user, chat_id: 1)
       message = create_message(chat_id: 1)
 
-      expect(User.get_or_create_from_message(message)).to eq(user)
+      expect(described_class.get_or_create_from_message(message)).to eq(user)
     end
 
     context 'when create a new user' do
       let(:message) { create_message(chat_id: 2, first_name: 'Joy', last_name: 'Den', username: 'Ben') }
-      let(:new_user) { User.get_or_create_from_message(message) }
+      let(:new_user) { described_class.get_or_create_from_message(message) }
 
       it { expect(new_user.username).to eq('Ben') }
       it { expect(new_user.chat_id).to eq(2) }

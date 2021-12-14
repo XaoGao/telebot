@@ -12,6 +12,8 @@ class StartCommand < ApplicationCommand
   end
 
   def cities
-    keyboard [[I18n.t('command.start.cities.moscow'), I18n.t('command.start.cities.saint-petersburg')], [I18n.t('command.start.cities.samara')]]
+    keyboard [[I18n.t('command.start.cities.moscow'),
+               I18n.t('command.start.cities.saint-petersburg')],
+              [I18n.t('command.start.cities.samara')]]
   end
 end

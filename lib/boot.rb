@@ -2,13 +2,14 @@
 
 require 'yaml'
 require 'sequel'
-require_relative './log'
-require 'byebug'
 require 'date'
 require 'i18n'
+require 'byebug'
+require_relative './log'
 
 module Telebot
   module Boot
+    Log.setup_logger
     Log.info 'Booting app'
 
     Log.info 'Connecting to DB'
@@ -29,9 +30,9 @@ module Telebot
     I18n.default_locale = :ru
     Log.info 'Locales loaded'
 
-    Dir[File.join(File.dirname(__FILE__), '..', 'lib', '*.rb')].sort.each(&method(:require))
-    Dir[File.join(File.dirname(__FILE__), '..', 'lib', '**', '*.rb')].sort.each(&method(:require))
-    Dir[File.join(File.dirname(__FILE__), '..', 'app', '**', '*.rb')].sort.each(&method(:require))
-    Dir[File.join(File.dirname(__FILE__), '..', 'config', '**', '*.rb')].sort.each(&method(:require))
+    Dir[File.join(File.dirname(__FILE__), '..', 'lib', '*.rb')].sort.each { |file| require file }
+    Dir[File.join(File.dirname(__FILE__), '..', 'lib', '**', '*.rb')].sort.each { |file| require file }
+    Dir[File.join(File.dirname(__FILE__), '..', 'app', '**', '*.rb')].sort.each { |file| require file }
+    Dir[File.join(File.dirname(__FILE__), '..', 'config', '**', '*.rb')].sort.each { |file| require file }
   end
 end

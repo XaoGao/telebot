@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'thor'
 require_relative '../helpers/utils'
+require 'byebug'
 
 module Telebot
   module Generators
@@ -9,17 +12,11 @@ module Telebot
 
       desc 'generate THING NAME', 'Generate command / action / model / migration'
       def generate(thing, name)
-        case thing.downcase
-        when 'model'
-          create_model(name)
-        when 'command'
-          create_command(name)
-        when 'action'
-          create_action(name)
-        when 'migration'
-          create_migration(name)
-        else
+        generate_command_method = command_by thing
+        if generate_command_method.nil?
           say "Undefind #{thing} params, abort!", :red
+        else
+          send(generate_command_method, name)
         end
       end
 
@@ -97,6 +94,19 @@ module Telebot
 
       def next_number_of_migration(migration)
         migration.nil? ? '001' : format('%03d', (migration.split('_').first.to_i + 1))
+      end
+
+      def generate_command
+        {
+          model: :create_model,
+          command: :create_command,
+          action: :create_action,
+          migration: :create_migration
+        }
+      end
+
+      def command_by(thing)
+        generate_command[thing.downcase.to_sym]
       end
     end
   end
