@@ -33,6 +33,8 @@ module Telebot
         if telegram_token.nil? || telegram_token.empty?
           raise ArgumentError, 'Set Telebot::Settings.telegram_token!'
         end
+
+        telegram_token
       end
 
       def default_logger
