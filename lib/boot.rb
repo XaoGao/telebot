@@ -9,7 +9,7 @@ require 'byebug'
 module Telebot
   module Boot
     Dir[File.join(File.dirname(__FILE__), '..', 'lib', 'settings.rb')].sort.each { |file| require file }
-    Dir[File.join(File.dirname(__FILE__), '..', 'config', 'initializers', 'telegram_bot_initialize.rb')].sort.each { |file| require file }
+    Dir[File.join(File.dirname(__FILE__), '..', 'config', 'initializers', 'telebot_initialize.rb')].sort.each { |file| require file }
 
     Settings.logger.info 'Booting app'
 
