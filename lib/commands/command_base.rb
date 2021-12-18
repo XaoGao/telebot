@@ -19,8 +19,8 @@ module Telebot
         send_call_back(:try)
       rescue StandardError => e
         send_call_back(:when_error)
-        Log.error e.message
-        Log.error e.backtrace
+        Settings.logger.error e.message
+        Settings.logger.error e.backtrace
       ensure
         send_call_back(:finally)
       end

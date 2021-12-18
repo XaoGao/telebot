@@ -5,14 +5,15 @@ require 'sequel'
 require 'date'
 require 'i18n'
 require 'byebug'
-require_relative './log'
 
 module Telebot
   module Boot
-    Log.setup_logger
-    Log.info 'Booting app'
+    Dir[File.join(File.dirname(__FILE__), '..', 'lib', 'settings.rb')].sort.each { |file| require file }
+    Dir[File.join(File.dirname(__FILE__), '..', 'config', 'initializers', 'telegram_bot_initialize.rb')].sort.each { |file| require file }
 
-    Log.info 'Connecting to DB'
+    Settings.logger.info 'Booting app'
+
+    Settings.logger.info 'Connecting to DB'
     db_config_file = File.join(File.dirname(__FILE__), '..', 'app', 'db', 'database.yml')
     if File.exist?(db_config_file)
       config = YAML.safe_load(File.read(db_config_file))
@@ -23,12 +24,12 @@ module Telebot
     if File.exist?(db_config_file) && DB
       Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), '..', 'app', 'db', 'migrations'))
     end
-    Log.info 'Success connected to DB'
+    Settings.logger.info 'Success connected to DB'
 
-    Log.info 'Loading locales'
+    Settings.logger.info 'Loading locales'
     I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
     I18n.default_locale = :ru
-    Log.info 'Locales loaded'
+    Settings.logger.info 'Locales loaded'
 
     Dir[File.join(File.dirname(__FILE__), '..', 'lib', '*.rb')].sort.each { |file| require file }
     Dir[File.join(File.dirname(__FILE__), '..', 'lib', '**', '*.rb')].sort.each { |file| require file }

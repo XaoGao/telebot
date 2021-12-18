@@ -1,3 +1,8 @@
 # frozen_string_literal: true
 
-TOKEN = ENV['TELEGRAM_BOT_TOKEN']
+require_relative '../application'
+
+Telebot::Settings.configuration do |config|
+  config.telegram_token = ENV['TELEGRAM_BOT_TOKEN']
+  config.logger = Application.logger
+end

@@ -2,7 +2,7 @@
 
 require 'logger'
 require 'forwardable'
-
+# deprecated
 module Telebot
   class Log
     class << self
