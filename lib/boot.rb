@@ -27,8 +27,10 @@ module Telebot
     Settings.logger.info 'Success connected to DB'
 
     Settings.logger.info 'Loading locales'
-    I18n.load_path << Dir[File.expand_path('config/locales') + '/*.yml']
-    I18n.default_locale = :ru
+
+    I18n.load_path << Settings.default_locale_load_paths
+    I18n.default_locale = Settings.default_locale
+
     Settings.logger.info 'Locales loaded'
 
     Dir[File.join(File.dirname(__FILE__), '..', 'lib', '*.rb')].sort.each { |file| require file }

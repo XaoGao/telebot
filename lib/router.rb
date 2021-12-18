@@ -5,6 +5,8 @@ module Telebot
     attr_reader :command_factory
 
     def initialize(bot, routes)
+      raise ArgumentError, "Set Telebot::Settings.routes!" if routes.nil?
+
       @command_factory = CommandFactory.new(bot, routes)
     end
 
