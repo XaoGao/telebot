@@ -2,6 +2,13 @@
 
 require 'telegram/bot'
 require_relative './settings'
+require_relative './router'
+require_relative './commands/command_base'
+require_relative './commands/nil_command'
+require_relative './commands/command_factory'
+require_relative './generators/cli'
+require_relative './scheduler_config'
+require_relative './services/find_user_service'
 require_relative './boot'
 
 module Telebot
