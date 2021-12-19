@@ -11,8 +11,8 @@ module Telebot
         yield self
       end
 
-      def default_locale_load_paths
-        path = if locale_load_path || locale_load_path.empty?
+      def safe_locale_load_paths
+        path = if locale_load_path.nil? || locale_load_path.empty?
                  'config/locales'
                else
                  locale_load_path
@@ -21,7 +21,7 @@ module Telebot
         Dir[File.expand_path(path) + '/*.yml']
       end
 
-      def default_locale
+      def safe_locale
         if locale.nil?
           :ru
         else
@@ -37,8 +37,12 @@ module Telebot
         telegram_token
       end
 
-      def default_logger
-        Logger.new($stdout) if logger.nil?
+      def safe_logger
+        if logger.nil?
+          Logger.new($stdout)
+        else
+          logger
+        end
       end
     end
   end

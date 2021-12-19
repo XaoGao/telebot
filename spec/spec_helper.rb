@@ -56,7 +56,7 @@ if DB
   require_relative '../lib/services/find_user_service'
   require_relative '../lib/commands/command_factory'
   require_relative '../lib/router'
-  require_relative '../lib/bot_action'
+  require_relative '../lib/helpers/bot_action'
   require_relative '../lib/commands/command_base'
   require_relative '../lib/commands/nil_command'
   require_relative '../lib/helpers/utils'

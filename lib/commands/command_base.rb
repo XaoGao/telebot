@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+require_relative '../helpers/bot_action'
+
 module Telebot
   class CommandBase
-    include BotAction
+    include Telebot::Helpers::BotAction
     attr_reader :bot, :message, :user
 
     CALL_BACKS = %i[before_call after_call try when_error finally].freeze
@@ -19,8 +21,8 @@ module Telebot
         send_call_back(:try)
       rescue StandardError => e
         send_call_back(:when_error)
-        Settings.logger.error e.message
-        Settings.logger.error e.backtrace
+        Settings.safe_logger.error e.message
+        Settings.safe_logger.error e.backtrace
       ensure
         send_call_back(:finally)
       end
