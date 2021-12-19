@@ -15,7 +15,7 @@ module UserAasm
         state :add_new_vacation
         state :remove_exist_vacation
         state :show_weather
-        state :choose_item
+        state :create_order
 
         event :status_to_choose_city do
           transitions from: :empty, to: :choose_city
@@ -45,8 +45,8 @@ module UserAasm
           transitions from: :empty, to: :show_weather
         end
 
-        event :status_to_choose_item do
-          transitions from: :empty, to: :choose_item
+        event :status_to_create_order do
+          transitions from: :empty, to: :create_order
         end
 
         event :close_command do

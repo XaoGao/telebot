@@ -5,6 +5,7 @@ class User < Sequel::Model(DB)
   include UserAasm
 
   one_to_many :vacations
+  one_to_many :orders
 
   pretty_date_format_for :date_of_birth
 

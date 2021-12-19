@@ -12,7 +12,7 @@ class ItemsCommand < ApplicationCommand
       send_photo(photo: item.upload_attachment)
       send_message(text: item.info, reply_markup: markup)
     end
-    user.status_to_choose_item
+    user.status_to_create_order
     user.save
   end
 end

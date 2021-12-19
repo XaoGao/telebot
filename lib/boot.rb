@@ -5,11 +5,10 @@ require 'sequel'
 require 'date'
 require 'i18n'
 require 'byebug'
+require_relative '../config/initializers/telebot_initialize'
 
 module Telebot
   module Boot
-    Dir[File.join(File.dirname(__FILE__), '..', 'config', 'initializers', 'telebot_initialize.rb')].sort.each { |file| require file }
-
     Settings.safe_logger.info 'Booting app'
 
     Settings.safe_logger.info 'Connecting to DB'

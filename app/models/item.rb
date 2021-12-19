@@ -3,6 +3,8 @@
 class Item < Sequel::Model(DB)
   include FileUploadable
 
+  one_to_many :orders
+
   def validate
     super
     validates_presence %i[name desc price image]
