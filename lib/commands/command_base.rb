@@ -29,11 +29,6 @@ module Telebot
       send_call_back(:after_call)
     end
 
-    def command_done
-      user.close_command
-      user.save
-    end
-
     def send_call_back(call_back_name)
       step = self.class.send("#{call_back_name}_step")
       send(self.class.send("#{call_back_name}_step")) unless step.nil?

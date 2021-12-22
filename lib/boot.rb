@@ -3,7 +3,6 @@
 require 'yaml'
 require 'sequel'
 require 'date'
-require 'i18n'
 require 'byebug'
 require_relative '../config/initializers/telebot_initialize'
 
@@ -27,13 +26,6 @@ module Telebot
       Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), '..', 'app', 'db', 'migrations'))
     end
     Settings.safe_logger.info 'Success connected to DB'
-
-    Settings.safe_logger.info 'Loading locales'
-
-    I18n.load_path << Settings.safe_locale_load_paths
-    I18n.default_locale = Settings.safe_locale
-
-    Settings.safe_logger.info 'Locales loaded'
 
     Dir[File.join(File.dirname(__FILE__), '..', 'app', '**', '*.rb')].sort.each { |file| require file }
     Dir[File.join(File.dirname(__FILE__), '..', 'config', '**', '*.rb')].sort.each { |file| require file }
