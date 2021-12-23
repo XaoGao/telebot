@@ -6,6 +6,8 @@ require 'bundler/setup' if File.exist?(ENV['BUNDLE_GEMFILE'])
 # Bundler.require
 require 'yaml'
 require 'logger'
+require 'dotenv/load'
+
 module TelegramBot
   class Application
     class << self

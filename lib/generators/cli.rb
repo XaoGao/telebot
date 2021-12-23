@@ -2,7 +2,6 @@
 
 require 'thor'
 require_relative '../helpers/utils'
-require 'byebug'
 
 module Telebot
   module Generators

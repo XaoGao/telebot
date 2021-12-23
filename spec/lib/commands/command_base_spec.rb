@@ -15,13 +15,6 @@ RSpec.describe Telebot::CommandBase do
     it { expect(command_base.instance_variable_get(:@user)).to eq(user) }
   end
 
-  describe '.command_done' do
-    it 'change status user to empty and save' do
-      command_base.send(:command_done)
-      expect(User.find(id: user.id).action).to eq(User.aasm(:actions).initial_state.to_s)
-    end
-  end
-
   describe 'call back' do
     it 'check methods exist' do
       described_class::CALL_BACKS.each do |method_name|

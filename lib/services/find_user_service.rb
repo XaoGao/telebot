@@ -8,6 +8,8 @@ module Telebot
         User.find(chat_id: bot_message.from.id)
       when Telegram::Bot::Types::Message
         User.get_or_create_from_message bot_message
+      else
+        raise ArgumentError, 'ТTelegram bot get message unknown type!'
       end
     end
   end

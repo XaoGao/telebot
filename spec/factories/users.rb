@@ -10,5 +10,8 @@ FactoryBot.define do
     username { Faker::Internet.username }
     chat_id { Faker::IDNumber.croatian_id }
     date_of_birth { Faker::Time.between(from: DateTime.now - 1, to: DateTime.now) }
+    action { 'empty' }
+    gender { 0 }
+    address { 'Москва' }
   end
 end

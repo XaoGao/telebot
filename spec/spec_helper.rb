@@ -47,6 +47,7 @@ if DB
   Sequel.extension :migration
   Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), '..', 'app', 'db', 'migrations'))
 
+  require_relative '../lib/settings'
   require_relative '../app/models/concerns/date_formatter'
   require_relative '../app/models/concerns/file_uploadable'
   require_relative '../app/models/concerns/user_aasm'

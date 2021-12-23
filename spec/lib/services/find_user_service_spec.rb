@@ -2,25 +2,36 @@
 
 require_relative '../../spec_helper'
 
-RSpec.describe 'FindUserService' do
+RSpec.describe Telebot::FindUserService do
   describe '.find' do
-    let(:user_first) { create(:user, chat_id: 1) }
-    let(:user_second) { create(:user, chat_id: 2) }
-    let(:user_last) { create(:user, chat_id: 3) }
+    subject(:find_user_service) { described_class.new }
 
-    # context 'when come Types::Message' do
-    #   it 'message with chat id user' do
-    #     message = create_message(chat_id: 1)
-    #     user = FindUserService.new.find(message)
-    #     expect(user).to be user_first
-    #   end
-    # end
+    let!(:user_first) { create(:user, chat_id: 1) }
 
-    # context 'when come Types::CallbackQuery' do
-    #   it 'message with chat id user' do
-    #     x = FindUserService.new.find(nil)
-    #     expect(true).to be true
-    #   end
-    # end
+    context 'when come Types::Message' do
+      let(:message) { create_message(chat_id: 1) }
+
+      it 'message with chat id user' do
+        allow(Telegram::Bot::Types::Message).to receive(:===).with(message).and_return(true)
+        user = find_user_service.find(message)
+        expect(user).to eq(user_first)
+      end
+    end
+
+    context 'when come Types::CallbackQuery' do
+      let(:message) { create_callback(id: 1) }
+
+      it 'message with chat id user' do
+        allow(Telegram::Bot::Types::CallbackQuery).to receive(:===).with(message).and_return(true)
+        user = find_user_service.find(message)
+        expect(user).to eq(user_first)
+      end
+    end
+
+    context 'when come wrong message' do
+      it 'argument error' do
+        expect { find_user_service.find('wrong message') }.to raise_error(ArgumentError)
+      end
+    end
   end
 end
