@@ -2,6 +2,7 @@
 
 require 'thor'
 require_relative '../helpers/utils'
+require_relative './templates'
 
 module Telebot
   module Generators
@@ -11,83 +12,53 @@ module Telebot
 
       desc 'generate THING NAME', 'Generate command / action / model / migration'
       def generate(thing, name)
-        generate_command_method = command_by thing
-        if generate_command_method.nil?
+        generate_method = generate_by thing
+        if generate_method.nil?
           say "Undefind #{thing} params, abort!", :red
         else
-          send(generate_command_method, name)
+          send(generate_method, name)
         end
       end
-
-      map g: :generate
 
       private
 
       def create_command(file_name)
         path = File.join('app', 'commands')
         full_name = File.join(path, "#{file_name}_command.rb")
-        name = file_name.split('/').last
+        name = file_name.split('/').last.to_camel_case
         create_file full_name do
-          <<~COMMAND
-            class #{name.to_camel_case}Command < ApplicationCommand
-              # before_call :some_method
-              # try         :some_method
-              # when_error  :some_method
-              # finally     :some_method
-              # after_call  :some_method
-            end
-          COMMAND
+          Templates.command(name)
         end
       end
 
       def create_action(file_name)
         path = File.join('app', 'commands')
         full_name = File.join(path, "#{file_name}_action.rb")
-        name = file_name.split('/').last
+        name = file_name.split('/').last.to_camel_case
         create_file full_name do
-          <<~COMMAND
-            class #{name.to_camel_case}Action < ApplicationCommand
-              # before_call :some_method
-              # try         :some_method
-              # when_error  :some_method
-              # finally     :some_method
-              # after_call  :some_method
-            end
-          COMMAND
+          Templates.action(name)
         end
       end
 
       def create_model(file_name)
-        create_migration("create_#{file_name}")
+        create_migration("create_#{file_name}", true)
         path = File.join('app', 'models')
         full_name = File.join(path, "#{file_name}.rb")
-        name = file_name.split('/').last
+        name = file_name.split('/').last.to_camel_case
         create_file full_name do
-          <<~COMMAND
-            class #{name.to_camel_case} < Sequel::Model(DB)
-            end
-          COMMAND
+          Templates.model(name)
         end
       end
 
-      def create_migration(file_name)
+      def create_migration(file_name, for_model = false)
         path = File.join('app', 'db', 'migrations')
         existed_migrations = Dir["#{path}/*.rb"].sort
         last_migration = existed_migrations.last.split('/').last
         current_number_of_migration = next_number_of_migration(last_migration)
         migration_name = File.join(path, [current_number_of_migration, "#{file_name}.rb"].join('_'))
+        model_name = file_name.sub('create_', '').to_snake_case
         create_file migration_name do
-          <<~MIGRATION
-            Sequel.migration do
-              up do
-
-              end
-
-              down do
-
-              end
-            end
-          MIGRATION
+          for_model ? Templates.model_migration(model_name) : Templates.migration
         end
       end
 
@@ -95,7 +66,7 @@ module Telebot
         migration.nil? ? '001' : format('%03d', (migration.split('_').first.to_i + 1))
       end
 
-      def generate_command
+      def generate_list
         {
           model: :create_model,
           command: :create_command,
@@ -104,8 +75,8 @@ module Telebot
         }
       end
 
-      def command_by(thing)
-        generate_command[thing.downcase.to_sym]
+      def generate_by(thing)
+        generate_list[thing.downcase.to_sym]
       end
     end
   end
