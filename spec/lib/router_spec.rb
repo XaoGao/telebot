@@ -13,19 +13,21 @@ RSpec.describe Telebot::Router do
   describe '.resolve' do
     subject(:router) { described_class.new('Fake_bot', routes) }
 
-    let(:routes) do
-      YAML.safe_load(File.read(File.join(File.dirname(__FILE__), '..', 'support', 'test_routes.yml')))
-    end
+    let(:routes) { test_routes }
     let(:user) { create(:user, chat_id: 1) }
     let(:find_user_service) { instance_double(Telebot::FindUserService, find: user) }
-    let(:command_factory) { instance_double(Telebot::CommandFactory, create_command: nil_command) }
-    let(:nil_command) { Telebot::NilCommand.new(nil, nil, nil) }
+    let(:command_factory) do
+       instance_double(Telebot::CommandFactory, create_command: Telebot::NilCommand.new(nil, nil, nil))
+    end
     let(:message) { create_message chat_id: 1, text: 'simple text' }
+
+    before do
+      router.instance_variable_set(:@find_user_service, find_user_service)
+      router.instance_variable_set(:@command_factory, command_factory)
+    end
 
     context 'when message is plain text' do
       it 'success call nil command' do
-        router.instance_variable_set(:@find_user_service, find_user_service)
-        router.instance_variable_set(:@command_factory, command_factory)
         expect(router.resolve(message)).to eq(nil)
       end
     end
@@ -33,8 +35,6 @@ RSpec.describe Telebot::Router do
     context 'when raise error' do
       it 'log error and return nil' do
         allow(command_factory).to receive(:create_command).and_raise(ArgumentError, 'test error')
-        router.instance_variable_set(:@find_user_service, find_user_service)
-        router.instance_variable_set(:@command_factory, command_factory)
         expect(router.resolve(message)).to eq(nil)
       end
     end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HelperMethods
-  def read_routes
+  def test_routes
     YAML.safe_load(File.read(File.join(File.dirname(__FILE__), 'test_routes.yml')))
   end
 

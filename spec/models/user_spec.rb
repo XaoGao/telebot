@@ -5,8 +5,12 @@ require_relative '../spec_helper'
 RSpec.describe User do
   let(:user) do
     build(:user, username: 'simple_user', first_name: 'Joy', last_name: 'Den', action: 'update_date_of_birth',
-                 date_of_birth: '2021-07-21 00:00:00 +0300')
+                 date_of_birth: valid_date)
   end
+
+  let(:date_to_mach) { '3021-07-21 00:00:00 +0300' }
+  let(:valid_date) { '2021-07-21 00:00:00 +0300' }
+  let(:date_to_low) { '1021-07-21 00:00:00 +0300' }
 
   it '.full_name' do
     expect(user.full_name).to eq('Den Joy')
@@ -40,7 +44,7 @@ RSpec.describe User do
 
   describe 'validate date of birth' do
     context 'when date of birth to mach' do
-      let(:user) { build(:user, date_of_birth: '3021-07-21 00:00:00 +0300') }
+      let(:user) { build(:user, date_of_birth: date_to_mach) }
 
       it { expect(user.valid?).to be false }
 
@@ -51,7 +55,7 @@ RSpec.describe User do
     end
 
     context 'when date of birth to less' do
-      let(:user) { build(:user, date_of_birth: '1900-07-21 00:00:00 +0300') }
+      let(:user) { build(:user, date_of_birth: date_to_low) }
 
       it { expect(user.valid?).to be false }
 
@@ -100,27 +104,24 @@ RSpec.describe User do
     end
   end
 
-  describe '.year_of_date_of_birth_to_mach?' do
-    let(:user_with_valid_date_of_birth) { build(:user, date_of_birth: '2021-07-21 00:00:00 +0300') }
-    let(:user_with_invalid_date_of_birth) { build(:user, date_of_birth: '1021-07-21 00:00:00 +0300') }
+  describe 'check date' do
+    let(:user_with_valid_date_of_birth) { build(:user, date_of_birth: valid_date) }
+    let(:user_with_invalid_date_of_birth_to_low) { build(:user, date_of_birth: date_to_low) }
+    let(:user_with_invalid_date_of_birth_to_math) { build(:user, date_of_birth: date_to_mach) }
 
-    it { expect(user_with_valid_date_of_birth.send(:year_of_date_of_birth_to_mach?)).to be false }
-    it { expect(user_with_invalid_date_of_birth.send(:year_of_date_of_birth_to_mach?)).to be true }
-  end
+    describe '.year_of_date_of_birth_to_mach?' do
+      it { expect(user_with_valid_date_of_birth.send(:year_of_date_of_birth_to_mach?)).to be false }
+      it { expect(user_with_invalid_date_of_birth_to_low.send(:year_of_date_of_birth_to_mach?)).to be true }
+    end
 
-  describe '.year_of_date_of_birth_negative?' do
-    let(:user_with_valid_date_of_birth) { build(:user, date_of_birth: '2021-07-21 00:00:00 +0300') }
-    let(:user_with_invalid_date_of_birth) { build(:user, date_of_birth: '3021-07-21 00:00:00 +0300') }
+    describe '.year_of_date_of_birth_negative?' do
+      it { expect(user_with_valid_date_of_birth.send(:year_of_date_of_birth_negative?)).to be false }
+      it { expect(user_with_invalid_date_of_birth_to_math.send(:year_of_date_of_birth_negative?)).to be true }
+    end
 
-    it { expect(user_with_valid_date_of_birth.send(:year_of_date_of_birth_negative?)).to be false }
-    it { expect(user_with_invalid_date_of_birth.send(:year_of_date_of_birth_negative?)).to be true }
-  end
-
-  describe '.date_of_birth_invalid?' do
-    let(:user_with_valid_date_of_birth) { build(:user, date_of_birth: '2021-07-21 00:00:00 +0300') }
-    let(:user_with_invalid_date_of_birth) { build(:user, date_of_birth: '3021-07-21 00:00:00 +0300') }
-
-    it { expect(user_with_valid_date_of_birth.send(:date_of_birth_invalid?)).to be false }
-    it { expect(user_with_invalid_date_of_birth.send(:date_of_birth_invalid?)).to be true }
+    describe '.date_of_birth_invalid?' do
+      it { expect(user_with_valid_date_of_birth.send(:date_of_birth_invalid?)).to be false }
+      it { expect(user_with_invalid_date_of_birth_to_math.send(:date_of_birth_invalid?)).to be true }
+    end
   end
 end

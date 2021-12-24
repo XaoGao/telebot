@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'logger'
+require_relative './nil_logger'
 
 module Telebot
   class Settings
@@ -21,7 +21,7 @@ module Telebot
 
       def safe_logger
         if logger.nil?
-          Logger.new($stdout)
+          NilLogger.new
         else
           logger
         end
