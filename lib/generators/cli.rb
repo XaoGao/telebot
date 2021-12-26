@@ -20,6 +20,26 @@ module Telebot
         end
       end
 
+      desc 'init prject', 'Generate requires files'
+      def init
+        model_user_path = File.join('app', 'models', 'user.rb')
+        create_file model_user_path do
+          Templates.model('User')
+        end
+        path_to_migration = File.join('app', 'db', 'migrations')
+        existed_migrations = Dir["#{path_to_migration}/*.rb"].sort
+        last_migration = existed_migrations.last.split('/').last
+        current_number_of_migration = next_number_of_migration(last_migration)
+        migration_name = File.join(path_to_migration, [current_number_of_migration, 'create_user.rb'].join('_'))
+        create_file migration_name do
+          Templates.user_migration
+        end
+        path_to_command = File.join('app', 'commands', 'apllication_command.rb')
+        create_file path_to_command do
+          Templates.apllication_command
+        end
+      end
+
       private
 
       def create_command(file_name)
