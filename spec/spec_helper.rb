@@ -48,12 +48,15 @@ if DB
   Sequel::Migrator.run(DB, File.join(File.dirname(__FILE__), '..', 'app', 'db', 'migrations'))
 
   require_relative '../lib/settings'
+  require_relative '../config/application'
+  require_relative '../config/application_boot'
   require_relative '../app/models/concerns/date_formatter'
   require_relative '../app/models/concerns/file_uploadable'
   require_relative '../app/models/concerns/user_aasm'
   require_relative '../app/models/user'
   require_relative '../app/models/vacation'
   require_relative '../app/models/vacation_range'
+  require_relative '../app/models/item'
   require_relative '../lib/services/find_user_service'
   require_relative '../lib/commands/command_factory'
   require_relative '../lib/router'
